@@ -52,6 +52,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
               
         // Enable dojo on layout
         $view->addHelperPath('Zend/Dojo/View/Helper/', 'Zend_Dojo_View_Helper');
+        $view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Zend_View_Helper_SortingLinks');
+        
         $view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Zend_View_Helper_NavMenu');
         $view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Zend_View_Helper_AclLink');
         $view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Zend_View_Helper_AdminTemplateDir');

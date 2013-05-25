@@ -2,9 +2,14 @@
 	<a href="<?php echo $this->url(array('controller'=>'permissions','action'=>'add'), 'default');?>">Agregar nuevo permission</a>
 </p>
 <?= $this->form ?>
+
+
 <table>
 	<tr>
-		<th>Role</th>
+		<th>Rolessss
+			<?php echo $this->getLink($pages->current, $itemsPerPage, 'ID', 'asc', '&uArr;'); ?> 
+            <?php echo $this->getLink($pages->current, $itemsPerPage, 'ID', 'desc', '&dArr;'); ?>
+         </th>
 		<th>Resource</th>
         <th>permission</th>
         <th>name</th>
