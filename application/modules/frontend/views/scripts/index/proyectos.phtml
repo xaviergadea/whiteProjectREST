@@ -1,0 +1,52 @@
+<div class="scroll-pane">
+
+<?php 
+$a=0;
+?>
+<?php foreach($this->entries as $entry) : ?>
+<?php 
+$style='';
+if ($a==0){ 
+	echo '<ul class="proyectos">';
+	$style='style="clear: left;"';
+}
+?>
+	<?php 
+	switch($_SESSION['default']['language']){
+		case 'es':	
+	?>
+	<li <?=$style;?>>
+		<a href="/frontend/index/detalles/proyecto/<?php echo $this->escape($entry['id']);?>"><img width=167 height=123 src="/assets/proyectos/<?php echo $this->escape($entry['category_short']);?>/<?php echo $this->escape($entry['short_name']);?>/<?php echo $this->escape($entry['thumbnail']);?>" alt="image" /></a>
+		<h4><?php echo $this->escape($entry['project_esp']);?></h4><span><?php echo $this->escape($entry['place_esp']);?>, <?php echo $this->escape($entry['year']);?></span>
+	</li>
+	<?php 
+		break;
+		case 'ca':
+	?>
+	<li <?=$style;?>>
+		<a href="/frontend/index/detalles/proyecto/<?php echo $this->escape($entry['id']);?>"><img width=167 height=123 src="/assets/proyectos/<?php echo $this->escape($entry['category_short']);?>/<?php echo $this->escape($entry['short_name']);?>/<?php echo $this->escape($entry['thumbnail']);?>" alt="image" /></a>
+		<h4><?php echo $this->escape($entry['project_cat']);?></h4><span><?php echo $this->escape($entry['place_cat']);?>, <?php echo $this->escape($entry['year']);?></span>
+	</li>
+	<?php 
+		break;
+		case 'en':
+	?>
+	<li <?=$style;?>>
+		<a href="/frontend/index/detalles/proyecto/<?php echo $this->escape($entry['id']);?>"><img width=167 height=123 src="/assets/proyectos/<?php echo $this->escape($entry['category_short']);?>/<?php echo $this->escape($entry['short_name']);?>/<?php echo $this->escape($entry['thumbnail']);?>" alt="image" /></a>
+		<h4><?php echo $this->escape($entry['project_eng']);?></h4><span><?php echo $this->escape($entry['place_eng']);?>, <?php echo $this->escape($entry['year']);?></span>
+	</li><?php 
+		break;
+		}
+	?>
+<?php 
+
+$a++;
+if ($a==3) {
+	echo '</ul>';
+		$a=0;
+}
+?>
+<?php endforeach;?>
+
+</div>
+

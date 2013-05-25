@@ -1,0 +1,22 @@
+<p>
+	<a href="<?php echo $this->url(array('controller'=>'index','action'=>'add'), 'default');?>">Agregar nuevo proyecto</a>
+</p>
+<table>
+	<tr>
+		<th>Project_name</th>
+		<th>Categoría</th>
+		<th>Status</th>		
+        <th>&nbsp;</th>
+	</tr>
+	<?php foreach($this->entries as $entry) : ?>
+		<tr class="<?php echo $this->cycle(array("even","odd"))->next()?>" >
+			<td><?php echo $this->escape($entry['project_esp']);?></td>
+			<td><?php echo $this->escape($entry['category_esp']);?></td>
+		<td><?php if ($entry['status']==1) echo "activo"; else echo "inactivo";?> <a href="<?php echo $this->url(array('module'=>'projects','controller'=>'index','action'=>'toggle', 'project_id'=>$entry['id'], 'tooglevar'=>'status', 'status'=>$entry['status']));?>">Toggle</a></td>
+		<td>
+		<a href="<?php echo $this->url(array('module'=>'projects','controller'=>'index','action'=>'edit', 'project_id'=>$entry['id']));?>">Editar</a>
+		<a href="<?php echo $this->url(array('module'=>'projects','controller'=>'index','action'=>'delete', 'project_id'=>$entry['id']), 'default');?>">Borrar</a>
+		</td>
+		</tr>
+	<?php endforeach; ?>
+</table>

@@ -1,0 +1,30 @@
+<p>
+	<a href="<?php echo $this->url(array('controller'=>'index','action'=>'add'));?>"><?=$this->translate("Add New User");?></a>
+</p>
+<table>
+	<tr>
+		<th><?=$this->translate("role_id");?></th>
+		<th><?=$this->translate("user_name");?></th>
+        <th><?=$this->translate("Email");?></th>
+        <th><?=$this->translate("Status");?></th>
+        
+        <th>&nbsp;</th>
+	</tr>
+	<?php foreach($this->entries as $entry) : ?>
+		<tr class="<?php echo $this->cycle(array("even","odd"))->next()?>" >
+			<td><?php echo $this->escape($entry['role_name']);?></td>
+            <td><?php echo $this->escape($entry['user_name']);?></td>
+            <td><?php echo $this->escape($entry['email']);?></td>
+            <td><?php echo $this->escape($entry['status']);?></td>
+            
+
+		<td width="30%">		
+		<a href="<?php echo $this->url(array('controller'=>'index','action'=>'edit', 'uid'=>$entry['uid']));?>"><?=$this->translate("Edit");?></a>
+		<a href="<?php echo $this->url(array('controller'=>'index','action'=>'delete', 'uid'=>$entry['uid']));?>"><?=$this->translate("Delete");?></a>
+		&nbsp;
+		&nbsp;
+		<a href="<?php echo $this->url(array('controller'=>'index','action'=>'editpassword', 'uid'=>$entry['uid']));?>"><?=$this->translate("Edit Password");?></a>
+		</td>
+		</tr>
+	<?php endforeach; ?>
+</table>

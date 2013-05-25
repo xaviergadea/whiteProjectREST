@@ -1,0 +1,23 @@
+<p>
+	<a href="<?php echo $this->url(array('controller'=>'resources','action'=>'add'));?>">Agregar nuevo resource</a>
+</p>
+<table>
+	<tr>
+		<th>module</th>
+        <th>resource</th>
+        <th>name_r</th>
+        <th>&nbsp;</th>
+	</tr>
+	<?php foreach($this->entries as $entry) : ?>
+		<tr class="<?php echo $this->cycle(array("even","odd"))->next()?>" >
+			<td><?php echo $this->escape($entry['module_name']);?></td>
+            <td><?php echo $this->escape($entry['resource']);?></td>
+            <td><?php echo $this->escape($entry['name_r']);?></td>
+
+		<td>
+		<a href="<?php echo $this->url(array('controller'=>'resources','action'=>'edit', 'uid'=>$entry['uid']));?>">Editar</a>
+		<a href="<?php echo $this->url(array('controller'=>'resources','action'=>'delete', 'uid'=>$entry['uid']));?>">Borrar</a>
+		</td>
+		</tr>
+	<?php endforeach; ?>
+</table>

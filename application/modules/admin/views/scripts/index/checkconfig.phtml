@@ -1,0 +1,79 @@
+<h2><?=$this->translate("Configuration checked");?>!!!</h2>
+
+<table border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<th>Feature</th>
+		<th>Value</th>
+		<th>Expected Value</th>
+		<th>Action/Status</th>
+	</tr>
+	<tr id="php-version">
+		<td><?php echo $this->translate('PHP Version'); ?></td>
+		<td><?php echo $this->php['php_version']; ?></td>
+		<td>> 5.2</td>
+		<td>OK</td>
+	</tr>
+	<tr id="framework-version">
+		<td><?php echo $this->translate('Zend Framework Version'); ?></td>
+		<td>
+		<?php 
+			if ($this->php['zend_enable']) { 
+				echo $this->php['zend_version'];
+			} else {
+				echo $this->translate('N/A'); 
+			}
+		?>
+		</td>
+		<td>> 1.10</td>
+		<td>OK</td>
+	</tr>
+	<tr id="apache-version">
+		<td><?php echo $this->translate('Apache Version'); ?></td>
+		<td><?php echo $this->php['apache_version']; ?></td>
+		<td>> 2.2</td>
+		<td>OK</td>
+	</tr>
+	<tr id="sql_server_version">
+		<td><?php echo $this->translate('SQL Server Version'); ?></td>
+        <td><?php echo $this->php['sql_server_version'] ?></td>
+        <td>> 5.1</td>
+		<td>OK</td>
+	</tr>
+	<tr id="dojo-version">
+		<td><?php echo $this->translate('Dojo Version'); ?></td>
+        <td><script language="javascript">document.write(dojo.version.toString());</script></td>
+        <td>Present</td>
+		<td>KO</td>
+	</tr>
+	<tr id="app_env">
+		<td><?php echo $this->translate('Application Env'); ?></td>
+        <td><?php echo $this->php['application_env']; ?></td>
+        <td>Configurable</td>
+		<td>Check your .htaccess</td>
+	</tr>
+	<tr id="doc_root">
+		<td><?php echo $this->translate('Document Root'); ?></td>
+        <td><?php echo $this->php['document_root']; ?></td>
+        <td>Configurable</td>
+		<td>Check your httpd.conf</td>
+	</tr>
+	<tr id="magic_quotes">
+		<td><?php echo $this->translate('PHP Magic Quotes'); ?></td>
+        <td><?php echo ($this->php['magic_quotes'] == 1 ? 'ON' : 'OFF'); ?></td>
+        <td>Off</td>
+		<td>OK</td>
+	</tr>
+	<tr id="mb_string">
+		<td><?php echo $this->translate('PHP MB String loaded'); ?></td>
+        <td><?php echo ($this->php['mb_string'] ? 'YES' : '<span style="color:red">NO</span>'); ?></td>
+        <td>Loaded</td>
+		<td>OK</td>
+	</tr>
+	<tr id="sql_strict">
+		<td><?php echo $this->translate('SQL Strict Mode'); ?></td>
+        <td><?php echo ($this->php['sql_strict_mode'] ? 'Active': 'Not active'); ?></td>
+        <td>Not Active</td>
+		<td>OK</td>
+	</tr>
+	
+</table>

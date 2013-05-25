@@ -1,0 +1,48 @@
+<div class="pagination">
+    <div class="pagination_left">
+    </div>
+    <div class="pagination_right">
+    	<div class="pagination_right_show">
+    		<?=$this->translate("Element");?> <?php echo $this->firstItemNumber; ?> <?=$this->translate("to");?> <?php echo $this->lastItemNumber; ?> <?=$this->translate("of");?> <?php echo $this->totalItemCount; ?></span>
+		</div>
+        <div class="pagination_right_links">
+                <!-- First page link -->
+                <?php if (isset($this->previous)): ?>
+                      <a href="<?= $this->url(array('page' => $this->first)); ?>"><?=$this->translate("Start");?></a> |
+                <?php else: ?>
+                        <span class="disabled"><?=$this->translate("Start");?></span> |
+                <?php endif; ?>
+            
+                <!-- Previous page link -->
+            
+                <?php if (isset($this->previous)): ?>
+                      <a href="<?= $this->url(array('page' => $this->previous)); ?>">&lt; <?=$this->translate("Previous");?></a> |
+                <?php else: ?>
+                    <span class="disabled">&lt; <?=$this->translate("Previous");?></span> |
+                <?php endif; ?>
+                <!-- Numbered page links -->
+                <?php foreach ($this->pagesInRange as $page): ?>
+                    <?php if ($page != $this->current): ?>
+                        <a href="<?= $this->url(array('page' => $page)); ?>"><?= $page; ?></a>
+                    <?php else: ?>
+                        <?= $page; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <!-- Next page link -->
+                <?php if (isset($this->next)): ?>
+                      | <a href="<?= $this->url(array('page' => $this->next)); ?>"><?=$this->translate("Next");?> &gt;</a> |
+                <?php else: ?>
+                    | <span class="disabled"><?=$this->translate("Next");?> &gt;</span> |
+                <?php endif; ?>
+                <!-- Last page link -->
+                <?php if (isset($this->next)): ?>
+                      <a href="<?= $this->url(array('page' => $this->last)); ?>"><?=$this->translate("End");?></a>
+                <?php else: ?>
+                    <span class="disabled"><?=$this->translate("End");?></span>
+                <?php endif; ?>
+        </div>
+		<div class="pagination_right_total">
+	        <?=$this->translate("Page");?> <?= $this->current; ?> <?=$this->translate("of");?> <?= $this->last; ?>
+		</div>
+    </div>
+ </div>

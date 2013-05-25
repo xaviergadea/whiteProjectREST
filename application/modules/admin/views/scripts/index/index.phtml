@@ -1,0 +1,60 @@
+<br/>
+<h2><?=$this->translate("Administration");?></h2>
+<p><?=$this->translate("Welcome");?>, <?php echo Zend_Auth::getInstance()->getIdentity()->user_name ?>.<br>
+<p></p>
+<br/>
+<table border="0" cellpadding="0" cellspacing="0">
+	<tr id="php-version">
+		<td><?php echo $this->translate('PHP Version'); ?></td>
+		<td><?php echo $this->php['php_version']; ?></td>
+	</tr>
+	<tr id="framework-version">
+		<td><?php echo $this->translate('Zend Framework Version'); ?></td>
+		<td>
+		<?php 
+			if ($this->php['zend_enable']) { 
+				echo $this->php['zend_version'];
+			} else {
+				echo $this->translate('N/A'); 
+			}
+		?>
+		</td>
+	</tr>
+	<tr id="apache-version">
+		<td><?php echo $this->translate('Apache Version'); ?></td>
+		<td><?php echo $this->php['apache_version']; ?></td>
+	</tr>
+	<tr id="sql_server_version">
+		<td><?php echo $this->translate('SQL Server Version'); ?></td>
+        <td><?php echo $this->php['sql_server_version'] ?></td>
+	</tr>
+	<tr id="dojo-version">
+		<td><?php echo $this->translate('Dojo Version'); ?></td>
+        <td><script language="javascript">document.write(dojo.version.toString());</script></td>
+	</tr>
+	<tr id="app_env">
+		<td><?php echo $this->translate('Application Env'); ?></td>
+        <td><?php echo $this->php['application_env']; ?></td>
+	</tr>
+	<tr id="doc_root">
+		<td><?php echo $this->translate('Document Root'); ?></td>
+        <td><?php echo $this->php['document_root']; ?></td>
+	</tr>
+	<tr id="magic_quotes">
+		<td><?php echo $this->translate('PHP Magic Quotes'); ?></td>
+        <td><?php echo ($this->php['magic_quotes'] == 1 ? 'ON' : 'OFF'); ?></td>
+	</tr>
+	<tr id="mb_string">
+		<td><?php echo $this->translate('PHP MB String loaded'); ?></td>
+        <td><?php echo ($this->php['mb_string'] ? 'YES' : '<span style="color:red">NO</span>'); ?></td>
+	</tr>
+	<tr id="sql_strict">
+		<td><?php echo $this->translate('SQL Strict Mode'); ?></td>
+        <td><?php echo ($this->php['sql_strict_mode'] ? '<span style="color:red">YES</span>': 'NO'); ?></td>
+	</tr>
+	<tr id="sql_strict">
+		<td><?php echo $this->translate('WLabel Account'); ?></td>
+        <td><?php echo $this->php['account']; ?></td>
+	</tr>
+	
+</table>

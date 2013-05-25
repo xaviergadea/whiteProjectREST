@@ -1,0 +1,18 @@
+<p>
+	<a href="<?php echo $this->url(array('controller'=>'roles','action'=>'add'));?>">Agregar nuevo role</a>
+</p>
+<table>
+	<tr>		
+		<th>role_name</th>
+        <th>&nbsp;</th>
+	</tr>
+	<?php foreach($this->entries as $entry) : ?>
+		<tr class="<?php echo $this->cycle(array("even","odd"))->next()?>" >	
+            <td><?php echo $this->escape($entry['role_name']);?></td>
+		<td>
+		<a href="<?php echo $this->url(array('controller'=>'roles','action'=>'edit', 'role_id'=>$entry['role_id']));?>">Editar</a>
+		<a href="<?php echo $this->url(array('controller'=>'roles','action'=>'delete', 'role_id'=>$entry['role_id']));?>">Borrar</a>
+		</td>
+		</tr>
+	<?php endforeach; ?>
+</table>

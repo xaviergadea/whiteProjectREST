@@ -1,0 +1,10 @@
+<p>Seguro que deseas borrar
+'<?php echo $this->escape($this->entry['permission']); ?>' en 
+'<?php echo $this->escape($this->entry['resource_uid']); ?>'?
+</p>
+<form action="<?= $this->url(array('module' => 'users','controller' => 'permissions','action'=>'delete'), 'default', true) ?>" method="post">
+<div>
+<input type="hidden" name="permission_id" value="<?php echo $this->entry['permission_id']; ?>" />
+<input type="submit" name="del" value="Si" />
+<input type="submit" name="del" value="No" />
+</div>

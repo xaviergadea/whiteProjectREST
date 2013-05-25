@@ -1,0 +1,29 @@
+<div class="scroll-pane">
+
+<ul class="proyectos">
+<?php 
+$a=0;
+?>
+<?php foreach($this->entries as $entry) : ?>
+<?php 
+if ($a==0) echo '<ul class="proyectos">';
+?>	
+	<li>
+		<a href="/frontend/index/detalles/proyecto/<?php echo $this->escape($entry['id']);?>"><img width=167 height=123 src="/assets/proyectos/<?php echo $this->escape($entry['category_short']);?>/<?php echo $this->escape($entry['short_name']);?>/<?php echo $this->escape($entry['thumbnail']);?>" alt="image" /></a>
+		<h4><?php echo $this->escape($entry['project']);?></h4><span><?php echo $this->escape($entry['place']);?><br/><?php echo $this->escape($entry['year']);?></span>
+	</li>
+	
+	
+<?php 
+
+$a++;
+if ($a==3) {
+	echo '</ul>';
+	$a=0;
+}
+?>
+<?php endforeach;?>
+
+<?php if ($a!=0) echo '</ul>';?>
+</div>
+

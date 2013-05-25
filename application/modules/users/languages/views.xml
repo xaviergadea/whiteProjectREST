@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tmx SYSTEM "tmx14.dtd">
+<tmx version="1.4">
+ <header creationtoolversion="1.0.0" datatype="winres" segtype="sentence"
+         adminlang="en-us" srclang="de-at" o-tmf="abc"
+         creationtool="XYZTool" >
+ </header>
+ <body>
+  <tu tuid='Index'>
+   <tuv xml:lang="en"><seg>Index</seg></tuv>
+   <tuv xml:lang="es"><seg>Índice</seg></tuv>
+   <tuv xml:lang="de"><seg>Index</seg></tuv>
+  </tu>
+  <tu tuid='Name'>
+   <tuv xml:lang="en"><seg>Name</seg></tuv>
+   <tuv xml:lang="es"><seg>Nombre</seg></tuv>
+  </tu>
+  <tu tuid='Email'>
+   <tuv xml:lang="en"><seg>Email</seg></tuv>
+   <tuv xml:lang="es"><seg>Email</seg></tuv>
+  </tu>
+  <tu tuid='Password'>
+   <tuv xml:lang="en"><seg>Password</seg></tuv>
+   <tuv xml:lang="es"><seg>Contraseña</seg></tuv>
+  </tu>
+  <tu tuid='Submit'>
+   <tuv xml:lang="en"><seg>Submit</seg></tuv>
+   <tuv xml:lang="es"><seg>Enviar</seg></tuv>
+  </tu>
+  <tu tuid='Add'>
+   <tuv xml:lang="en"><seg>Add</seg></tuv>
+   <tuv xml:lang="es"><seg>Agregar</seg></tuv>
+  </tu>
+  <tu tuid='Resource'>
+   <tuv xml:lang="en"><seg>Resource</seg></tuv>
+   <tuv xml:lang="es"><seg>Recurso</seg></tuv>
+  </tu>
+  <tu tuid='Permission'>
+   <tuv xml:lang="en"><seg>Permission</seg></tuv>
+   <tuv xml:lang="es"><seg>Permiso</seg></tuv>
+  </tu>
+  <tu tuid='Status'>
+   <tuv xml:lang="en"><seg>Status</seg></tuv>
+   <tuv xml:lang="es"><seg>Estatus</seg></tuv>
+  </tu>
+  <tu tuid='Module'>
+   <tuv xml:lang="en"><seg>Module</seg></tuv>
+   <tuv xml:lang="es"><seg>Módulo</seg></tuv>
+  </tu>
+  <tu tuid='Role'>
+   <tuv xml:lang="en"><seg>Role</seg></tuv>
+   <tuv xml:lang="es"><seg>Rol</seg></tuv>
+  </tu>
+  <tu tuid='Roles'>
+   <tuv xml:lang="en"><seg>Roles</seg></tuv>
+   <tuv xml:lang="es"><seg>Roles</seg></tuv>
+  </tu>
+  <tu tuid='Phone'>
+   <tuv xml:lang="en"><seg>Phone</seg></tuv>
+   <tuv xml:lang="es"><seg>Teléfono</seg></tuv>
+  </tu>
+  <tu tuid='Default URI'>
+   <tuv xml:lang="en"><seg>Default URI</seg></tuv>
+   <tuv xml:lang="es"><seg>Uri por defecto</seg></tuv>
+  </tu>
+  <tu tuid='Yes'>
+   <tuv xml:lang="en"><seg>Yes</seg></tuv>
+   <tuv xml:lang="es"><seg>Si</seg></tuv>
+  </tu>
+  <tu tuid='No'>
+   <tuv xml:lang="en"><seg>No</seg></tuv>
+   <tuv xml:lang="es"><seg>No</seg></tuv>
+  </tu>
+  <tu tuid='Use this form to add user'>
+   <tuv xml:lang="en"><seg>Use this form to add user</seg></tuv>
+   <tuv xml:lang="es"><seg>Formulario para agregar Usuarios</seg></tuv>
+  </tu>
+  <tu tuid='Use this form to edit user'>
+   <tuv xml:lang="en"><seg>Use this form to edit user</seg></tuv>
+   <tuv xml:lang="es"><seg>Formulario para editar Usuario</seg></tuv>
+  </tu>
+  <tu tuid='Use this form to edit user password'>
+   <tuv xml:lang="en"><seg>Use this form to edit user password</seg></tuv>
+   <tuv xml:lang="es"><seg>Formulario para editar Password de Usuario</seg></tuv>
+  </tu>
+  <tu tuid='Add New User'>
+   <tuv xml:lang="en"><seg>Add New User</seg></tuv>
+   <tuv xml:lang="es"><seg>Agregar nuevo usuario</seg></tuv>
+  </tu>
+  <tu tuid='Edit Password'>
+   <tuv xml:lang="en"><seg>Edit Password</seg></tuv>
+   <tuv xml:lang="es"><seg>Editar Password</seg></tuv>
+  </tu>
+  <tu tuid='role_id'>
+   <tuv xml:lang="en"><seg>Role id</seg></tuv>
+   <tuv xml:lang="es"><seg>Rol id</seg></tuv>
+  </tu>
+  <tu tuid='user_name'>
+   <tuv xml:lang="en"><seg>User name</seg></tuv>
+   <tuv xml:lang="es"><seg>Nombre</seg></tuv>
+  </tu>
+
+<tu tuid='Add User'>
+   <tuv xml:lang="en"><seg>Add User</seg></tuv>
+   <tuv xml:lang="es"><seg>Agregar Usuario</seg></tuv>
+  </tu>
+  <tu tuid='Edit User'>
+   <tuv xml:lang="en"><seg>Edit User</seg></tuv>
+   <tuv xml:lang="es"><seg>Editar Usuario</seg></tuv>
+  </tu>
+  <tu tuid='Delete User'>
+   <tuv xml:lang="en"><seg>Delete User</seg></tuv>
+   <tuv xml:lang="es"><seg>Borrar Usuario</seg></tuv>
+  </tu>
+  <tu tuid='Edit Password'>
+   <tuv xml:lang="en"><seg>Edit Password</seg></tuv>
+   <tuv xml:lang="es"><seg>Editar Password</seg></tuv>
+  </tu>
+  <tu tuid='Users'>
+   <tuv xml:lang="en"><seg>Users</seg></tuv>
+   <tuv xml:lang="es"><seg>Usuarios</seg></tuv>
+  </tu>
+
+  <tu tuid='Roles'>
+   <tuv xml:lang="en"><seg>Roles</seg></tuv>
+   <tuv xml:lang="es"><seg>Roles</seg></tuv>
+  </tu>
+  <tu tuid='Add Role'>
+   <tuv xml:lang="en"><seg>Add Role</seg></tuv>
+   <tuv xml:lang="es"><seg>Agregar Rol</seg></tuv>
+  </tu>
+  <tu tuid='Edit Role'>
+   <tuv xml:lang="en"><seg>Edit Role</seg></tuv>
+   <tuv xml:lang="es"><seg>Editar Rol</seg></tuv>
+  </tu>
+  <tu tuid='Delete Role'>
+   <tuv xml:lang="en"><seg>Delete Role</seg></tuv>
+   <tuv xml:lang="es"><seg>Borrar Rol</seg></tuv>
+  </tu>
+  <tu tuid='Resources'>
+   <tuv xml:lang="en"><seg>Resources</seg></tuv>
+   <tuv xml:lang="es"><seg>Recursos</seg></tuv>
+  </tu>
+  <tu tuid='Add Resource'>
+   <tuv xml:lang="en"><seg>Add Resource</seg></tuv>
+   <tuv xml:lang="es"><seg>Agregar Recurso</seg></tuv>
+  </tu>
+  <tu tuid='Edit Resource'>
+   <tuv xml:lang="en"><seg>Edit Resource</seg></tuv>
+   <tuv xml:lang="es"><seg>Editar Recurso</seg></tuv>
+  </tu>
+  <tu tuid='Delete Resource'>
+   <tuv xml:lang="en"><seg>Delete Resource</seg></tuv>
+   <tuv xml:lang="es"><seg>Borrar Recurso</seg></tuv>
+  </tu>
+  <tu tuid='Permissions'>
+   <tuv xml:lang="en"><seg>Permissions</seg></tuv>
+   <tuv xml:lang="es"><seg>Permisos</seg></tuv>
+  </tu>
+  <tu tuid='Add Permission'>
+   <tuv xml:lang="en"><seg>Add Permission</seg></tuv>
+   <tuv xml:lang="es"><seg>Agregar Permiso</seg></tuv>
+  </tu>
+  <tu tuid='Edit Permission'>
+   <tuv xml:lang="en"><seg>Edit Permission</seg></tuv>
+   <tuv xml:lang="es"><seg>Editar Permiso</seg></tuv>
+  </tu>
+  <tu tuid='Delete Permission'>
+   <tuv xml:lang="en"><seg>Delete Permission</seg></tuv>
+   <tuv xml:lang="es"><seg>Borrar Permiso</seg></tuv>
+  </tu>
+  <tu tuid='Modules'>
+   <tuv xml:lang="en"><seg>Modules</seg></tuv>
+   <tuv xml:lang="es"><seg>Módulos</seg></tuv>
+  </tu>
+  <tu tuid='Add Module'>
+   <tuv xml:lang="en"><seg>Add Module</seg></tuv>
+   <tuv xml:lang="es"><seg>Agregar Módulo</seg></tuv>
+  </tu>
+  <tu tuid='Edit Module'>
+   <tuv xml:lang="en"><seg>Edit Module</seg></tuv>
+   <tuv xml:lang="es"><seg>Editar Módulo</seg></tuv>
+  </tu>
+  <tu tuid='Delete Module'>
+   <tuv xml:lang="en"><seg>Delete Module</seg></tuv>
+   <tuv xml:lang="es"><seg>Borrar Módulo</seg></tuv>
+  </tu>
+  <tu tuid='List Resources'>
+   <tuv xml:lang="en"><seg>List Resources</seg></tuv>
+   <tuv xml:lang="es"><seg>Lista de Reccursos</seg></tuv>
+  </tu>
+  <tu tuid='Start'>
+   <tuv xml:lang="en"><seg>Start</seg></tuv>
+   <tuv xml:lang="es"><seg>Inicio</seg></tuv>
+  </tu>
+  <tu tuid='Previous'>
+   <tuv xml:lang="en"><seg>Previous</seg></tuv>
+   <tuv xml:lang="es"><seg>Anterior</seg></tuv>
+  </tu>
+  <tu tuid='Next'>
+   <tuv xml:lang="en"><seg>Next</seg></tuv>
+   <tuv xml:lang="es"><seg>Siguiente</seg></tuv>
+  </tu>
+  <tu tuid='End'>
+   <tuv xml:lang="en"><seg>End</seg></tuv>
+   <tuv xml:lang="es"><seg>Fin</seg></tuv>
+  </tu>
+  <tu tuid='Page'>
+   <tuv xml:lang="en"><seg>Page</seg></tuv>
+   <tuv xml:lang="es"><seg>Página</seg></tuv>
+  </tu>
+  <tu tuid='of'>
+   <tuv xml:lang="en"><seg>of</seg></tuv>
+   <tuv xml:lang="es"><seg>de</seg></tuv>
+  </tu>
+  <tu tuid='Email already exists'>
+   <tuv xml:lang="en"><seg>This e-mail already exists</seg></tuv>
+   <tuv xml:lang="es"><seg>Este email ya existe</seg></tuv>
+  </tu>
+  <tu tuid='Please, use other email or contact your administrator'>
+   <tuv xml:lang="en"><seg>Please use another e-mail or contact your administrator</seg></tuv>
+   <tuv xml:lang="es"><seg>Por favor, utilice otro email o contacte con su administrador</seg></tuv>
+  </tu>
+  <tu tuid='There was an error'>
+   <tuv xml:lang="en"><seg>Ooops, there was an error</seg></tuv>
+   <tuv xml:lang="es"><seg>Ha ocurrido un error</seg></tuv>
+  </tu>
+  <tu tuid='The data you entered does not match. Please try again'>
+   <tuv xml:lang="en"><seg>The data you entered does not match. Please try again</seg></tuv>
+   <tuv xml:lang="es"><seg>Los datos ingresados no concuerdan. Por favor inténtalo nuevamente</seg></tuv>
+  </tu>
+  <tu tuid='The user is registered in our database'>
+   <tuv xml:lang="en"><seg>The user is registered in our database</seg></tuv>
+   <tuv xml:lang="es"><seg>El usuario está refgistrado en la base de datos</seg></tuv>
+  </tu>
+  <tu tuid='Remember password'>
+   <tuv xml:lang="en"><seg>Remember password</seg></tuv>
+   <tuv xml:lang="es"><seg>Recordar contraseña</seg></tuv>
+  </tu>
+  <tu tuid='This account has not been VALIDATED. Please'>
+   <tuv xml:lang="en"><seg>This account has not been VALIDATED. Please</seg></tuv>
+   <tuv xml:lang="es"><seg>Esta cuenta no ha sido VALIDADA. Por favor</seg></tuv>
+  </tu>
+  <tu tuid='VALIDATE'>
+   <tuv xml:lang="en"><seg>VALIDATE</seg></tuv>
+   <tuv xml:lang="es"><seg>VALIDE</seg></tuv>
+  </tu>
+  <tu tuid='first'>
+   <tuv xml:lang="en"><seg>first</seg></tuv>
+   <tuv xml:lang="es"><seg>primero</seg></tuv>
+  </tu>
+  <tu tuid='We just sent an e-mail to you with a NEW password'>
+   <tuv xml:lang="en"><seg>We just sent an e-mail to you with a NEW password</seg></tuv>
+   <tuv xml:lang="es"><seg>Te hemos enviado un email con tu NUEVA contraseña</seg></tuv>
+  </tu>
+  <tu tuid='Thanks for using iPtours'>
+   <tuv xml:lang="en"><seg>Thanks for using iPtours</seg></tuv>
+   <tuv xml:lang="es"><seg>Gracias por usar iPtours</seg></tuv>
+  </tu>
+  <tu tuid='Login'>
+   <tuv xml:lang="en"><seg>Login</seg></tuv>
+   <tuv xml:lang="es"><seg>Autenticarse</seg></tuv>
+  </tu>
+  <tu tuid='The password you typed does not match the one we sent to you'>
+   <tuv xml:lang="en"><seg>The password you typed does not match the one we sent to you</seg></tuv>
+   <tuv xml:lang="es"><seg>La contraseña que le hemos enviado no se corresponde con la que ha introducido</seg></tuv>
+  </tu>
+  <tu tuid='Password changed successfully'>
+   <tuv xml:lang="en"><seg>Password changed successfully</seg></tuv>
+   <tuv xml:lang="es"><seg>La contraseña se ha cambiado correctamente</seg></tuv>
+  </tu>
+  <tu tuid='Please enter the password we have sent you'>
+   <tuv xml:lang="en"><seg>Please enter the password we have sent you</seg></tuv>
+   <tuv xml:lang="es"><seg>Por favor, introduce la contraseña que te hemos enviado</seg></tuv>
+  </tu>
+  <tu tuid='Your password for was successfully generated'>
+   <tuv xml:lang="en"><seg>Your password was successfully generated</seg></tuv>
+   <tuv xml:lang="es"><seg>Tu contraseña ha sido generada</seg></tuv>
+  </tu>
+  <tu tuid='You can access the Web site at the following address:'>
+   <tuv xml:lang="en"><seg>You can access the Web site at the following address:</seg></tuv>
+   <tuv xml:lang="es"><seg>Puedes acceder a la página web en el siguiente enlace:</seg></tuv>
+  </tu>
+  <tu tuid='Your login e-mail:'>
+   <tuv xml:lang="en"><seg>Your login e-mail:</seg></tuv>
+   <tuv xml:lang="es"><seg>Tu email de usuario:</seg></tuv>
+  </tu>
+  <tu tuid='Your new password:'>
+   <tuv xml:lang="en"><seg>Your new password:</seg></tuv>
+   <tuv xml:lang="es"><seg>Tu nueva contraseña:</seg></tuv>
+  </tu>
+  <tu tuid='For your own security, you will be prompted to change your password the next time you sign in to the system'>
+   <tuv xml:lang="en"><seg>For your own security, you will be prompted to change your password the next time you sign in to the system</seg></tuv>
+   <tuv xml:lang="es"><seg>Para tu propia seguridad, deberás cambiar esta contraseña la próxima vez que accedas al sistema</seg></tuv>
+  </tu>
+  <tu tuid=''>
+   <tuv xml:lang="en"><seg></seg></tuv>
+   <tuv xml:lang="es"><seg></seg></tuv>
+  </tu>
+  <tu tuid=''>
+   <tuv xml:lang="en"><seg></seg></tuv>
+   <tuv xml:lang="es"><seg></seg></tuv>
+  </tu>
+
+  
+  </body>

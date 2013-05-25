@@ -1,0 +1,20 @@
+<p>
+	<a href="<?php echo $this->url(array('controller'=>'index','action'=>'add'), 'default');?>">Agregar nueva info de equipo</a>
+</p>
+<table>
+	<tr>
+		<th>Equipo esp</th>
+		<th>Image</th>	
+        <th>&nbsp;</th>
+	</tr>
+	<?php foreach($this->entries as $entry) : ?>
+		<tr class="<?php echo $this->cycle(array("even","odd"))->next()?>" >
+			<td><?php echo substr($entry['equipo_esp'], 0, 200);?>...</td>
+			<td><?php echo $this->escape($entry['photo']);?>...</td>
+		<td>
+		<a href="<?php echo $this->url(array('module'=>'equipo','controller'=>'index','action'=>'edit', 'equipo_id'=>$entry['id']));?>">Editar</a>
+		<a href="<?php echo $this->url(array('module'=>'equipo','controller'=>'index','action'=>'delete', 'equipo_id'=>$entry['id']), 'default');?>">Borrar</a>
+		</td>
+		</tr>
+	<?php endforeach; ?>
+</table>

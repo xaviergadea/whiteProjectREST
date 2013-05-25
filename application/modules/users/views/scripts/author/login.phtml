@@ -1,0 +1,22 @@
+<div id="login-content">
+	<div class="notification information png_bg">
+		<?php if($this->failedValidation): ?>
+	    	<div><?=$this->translate("There was an error")?>.</div>
+	   	<?php elseif($this->failedAuthentication): ?>
+	    	<div><?=$this->translate("The data you entered does not match. Please try again")?>.</div>
+	    <?php endif; ?>
+	        
+	    <?php if($this->emailExist): ?>
+	    	<div><?=$this->translate("The user is registered in our database")?>.<a href="/users/author/recover/email/<?php echo $this->email ?>">[<?=$this->translate("Remember password")?>]</a>.</div>
+		<?php endif; ?>
+	
+		<?php if($this->statusState): ?>
+	    	<div><?=$this->translate("This account has not been VALIDATED. Please")?><a href="/users/author/validate/email/<?php echo $this->email ?>"> [<?=$this->translate("VALIDATE")?>]</a> <?=$this->translate("first")?>.</div>
+		<?php endif; ?>
+		<?php //echo $this->loginForm->render() ?>
+	    <?php if($this->passedAuthentication): ?>
+	       
+	    <?php endif; ?>						
+	</div>
+    <?= $this->form ?>
+</div>

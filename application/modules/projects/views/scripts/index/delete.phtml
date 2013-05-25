@@ -1,0 +1,9 @@
+<p>Seguro que deseas borrar
+'<?php echo $this->escape($this->entry['project_esp']); ?>'?
+</p>
+<form action="<?= $this->url(array('module' => 'projects','controller' => 'index','action'=>'delete'), 'default', true) ?>" method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->entry['id']; ?>" />
+<input type="submit" name="del" value="Si" />
+<input type="submit" name="del" value="No" />
+</div>

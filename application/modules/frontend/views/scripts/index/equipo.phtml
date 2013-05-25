@@ -1,0 +1,26 @@
+		<!-- .scrollpanel -->
+		<?php foreach($this->entries as $entry) : ?>
+		<div class="scroll-pane">
+		
+			<!-- START : .SUBHEADER -->
+			<br/>	
+			<!-- END : .SUBHEADER -->			
+			<p>		
+				<?php echo $entry['equipo'];?>		
+			</p>
+			<br/>
+			<p><img src="/assets/equipo/<?php echo $this->escape($entry['photo']);?>" alt="image" width=650px/></p>
+			<p>
+				<?php echo $entry['description'];?>				
+			</p>
+			<div class="half_width">
+			
+			</div>
+			<div class="half_width last">
+			
+			</div>
+			<div class="divider" style="height:76px;">
+			</div>
+		</div>
+		<?php endforeach;?>
+		<!-- .scrollpanel -->	

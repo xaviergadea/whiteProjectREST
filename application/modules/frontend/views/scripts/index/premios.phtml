@@ -1,0 +1,31 @@
+<style>
+ul.portfolio{margin:30px; padding:0px; list-style-type:none;}
+ul.portfolio li{margin:0px; padding:0px; list-style-type:none; display:inline; float:left; margin-right:35px; margin-bottom:25px;}
+ul.portfolio li.nomargin{margin-right:0px !important;}
+ul.portfolio li img{border:solid 1px #e0e0e0; padding:5px;}
+ul.portfolio h3 a, ul.portfolio h3 a:visited{color:#6b6b6b; text-decoration:none;}
+
+
+
+</style>
+<!-- .scrollpanel -->
+		<div class="scroll-pane">	
+<div id="maintext">
+
+	<ul class="portfolio">
+		<?php foreach($this->entries as $entry) : ?>
+		<?php if ($entry['premio']!=''):?>		
+		<li>			
+			<a href="/frontend/index/detalles/proyecto/<?php echo $this->escape($entry['id']);?>" rel="lightbox-gallery" title="Portfolio 1"><img width=167 height=123 src="/assets/proyectos/<?php echo $this->escape($entry['category_short']);?>/<?php echo $this->escape($entry['short_name']);?>/<?php echo $this->escape($entry['thumbnail']);?>" alt="image" /></a>
+			<b></b><h5><?php echo $this->escape($entry['project']);?></h5></b>
+			<span><?php echo $this->escape($entry['place']);?>, <?php echo $this->escape($entry['year']);?></span>
+			<h6><?php echo ucfirst(strtolower(nl2br($this->escape($entry['premio']))));?></h6>
+		</li>		
+		<?php endif; ?>
+		<?php endforeach;?>
+		
+	</ul>
+	
+</div><!-- end maintext -->
+		</div>
+		<!-- END : #PANEL -->

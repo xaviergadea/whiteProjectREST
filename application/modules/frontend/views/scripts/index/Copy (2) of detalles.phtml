@@ -1,0 +1,204 @@
+<script type="text/javascript">
+  var jsonObj = { items: [
+            {
+              "thumb":"/assets/proyectos/planeamiento/zonas_verds_hospitalet/av_carrilet_bis.jpg",
+              "large":"/assets/proyectos/planeamiento/zonas_verds_hospitalet/av_carrilet_bis.jpg",
+              "title":"I'm wide, me",
+              "link":"http://www.flickr.com/photos/44153025@N00/748348847"
+            },
+            {
+             "thumb":"/assets/proyectos/planeamiento/zonas_verds_hospitalet/avda_carrilet.jpg",
+              "large":"/assets/proyectos/planeamiento/zonas_verds_hospitalet/avda_carrilet.jpg",
+              "title":"I'm a horizontal picture",
+              "link":"http://www.flickr.com/photos/44153025@N00/735656038"
+            },
+            {
+              "thumb":"/assets/proyectos/planeamiento/zonas_verds_hospitalet/marti_codolar_buses_final.jpg",
+              "large":"/assets/proyectos/planeamiento/zonas_verds_hospitalet/marti_codolar_buses_final.jpg",
+              "title":"I'm another horizontal picture",
+              "link":"http://www.flickr.com/photos/44153025@N00/714540483"
+            }           
+        ]}
+
+  
+</script>
+
+<div jsId="imageItemStore" dojoType="dojo.data.ItemFileReadStore"
+  url="/assets/proyectos/planeamiento/planeamiento.images.json"></div>
+
+	
+	
+
+<!-- .scrollpanel -->
+		<div class="scroll-pane">
+		<div id="slideshow1" dojoType="dojox.image.SlideShow">
+  <script type="dojo/connect">
+    //This function runs when the widget has finished constructing
+    //It sets the data store to use
+    this.setDataStore(
+      //The data store
+      imageItemStore,
+      //The request object
+      { query: {}, count:5 },
+      //The names of the attributes to get
+      {
+        imageThumbAttr: "thumb",
+        imageLargeAttr: "large"
+      }
+    );
+  </script>
+</div>
+<div id="thumbPicker3" dojoType="dojox.image.ThumbnailPicker" isHorizontal="false"
+  size="300">
+  <script type="dojo/connect">
+    var itemRequest = {
+      query: {},
+      count: 20
+    };
+    var itemNameMap = {
+      imageThumbAttr: "thumb",
+      imageLargeAttr: "large"
+    };
+    this.setDataStore(imageItemStore, itemRequest, itemNameMap);
+	
+    dojo.subscribe(this.getClickTopicName(), function(packet){
+      var title = imageItemStore.getValue(packet.data, "thumb");
+      dojo.byId("slideshow1").innerHTML = "<img src='" + title + "' style='display: inline;'>";
+    });
+
+  </script>
+</div>
+
+  
+<div id="gallery1" dojoType="dojox.image.Gallery" isHorizontal="false" autoLoad="false">
+  <script type="dojo/connect">
+    var dataStore = new dojo.data.ItemFileReadStore({data: jsonObj});
+	var itemRequest = {
+      query: {},
+      count: 20
+    };
+    var itemNameMap = {
+      imageThumbAttr: "thumb",
+      imageLargeAttr: "large"
+    };
+    this.setDataStore(imageItemStore, itemRequest, itemNameMap);
+
+dojo.declare("dojox.image.ThumbnailPicker",
+	[dijit._Widget, dijit._Templated],
+	{
+	
+	thumbHeight: 75, // FIXME: use CSS?
+});
+  </script>
+</div>
+
+
+
+
+		
+		
+		
+		
+		<?php foreach($this->entries as $entry) : ?>
+			<!-- START : .PICACHOOSE -->
+			<div class="pikachoose">				
+				<ul id="pikame" class="jcarousel-skin-pika">
+					<?php 
+					$images=explode(',',$entry['images']);
+					foreach($images as $image):
+					?>
+					<li>
+						<img src="/assets/proyectos/<?=$entry['category_short'];?>/<?=$entry['short_name'];?>/<?=$image;?>"/>
+					</li>
+					<?php endforeach;?>
+				</ul>
+			</div>	
+			<!-- END : .PICACHOOSE -->
+			<div class="clear"></div>
+			<!-- START : .SUBHEADER -->
+			<div id = "infoag">
+				<div class="subheader">	
+					
+						<?php if(isset(Zend_Auth::getInstance()->getIdentity()->user_name)
+								and Zend_Auth::getInstance()->getIdentity()->user_name):?>	
+						<div id="frontadmin">				
+							<a target="_blank" href="<?php echo $this->url(array('module'=>'projects','controller'=>'index','action'=>'edit', 'project_id'=>$entry['id']));?>">Editar</a>
+							<a target="_blank" href="<?php echo $this->url(array('module'=>'projects','controller'=>'index','action'=>'delete', 'project_id'=>$entry['id']), 'default');?>">Borrar</a>
+						</div>
+						<?php endif;?>
+									
+					<p class="simple">
+						<?php echo $this->escape($entry['project']);?><br/>
+						<?php echo $this->escape($entry['place']);?>, <?php echo $this->escape($entry['year']);?>
+					</p>				
+				</div>	
+				<div class="two_third">
+					<p>
+					<?php echo $this->escape($entry['description']);?>
+					</p>
+				</div>
+	<!--			<div class="one_third" ></div>-->
+				<div class="one_third last">					
+								
+					
+					<?php if($entry['promotors']!=''):?>
+						<h5><?=$this->translate("Cliente");?></h5>
+						<p>
+							<?php echo $this->escape($entry['promotors']);?>
+						</p>
+					<?php endif;?>											
+					
+					<?php if($entry['associates']!=''):?>
+						<h5><?=$this->translate("Asociados");?></h5>
+						<p>
+							<?php echo $this->escape($entry['associates']);?>
+						</p>
+					<?php endif;?>
+					
+					<?php if($entry['constructor']!=''):?>
+						<h5><?=$this->translate("Colaborando con");?></h5>
+						<p>
+							<?php echo $this->escape($entry['constructor']);?>
+						</p>
+					<?php endif;?>
+					
+					<?php if($entry['colaborators']!=''):?>
+						<h5><?=$this->translate("Consultores");?></h5>
+						<p>
+							<?php echo $this->escape($entry['colaborators']);?>
+						</p>
+					<?php endif;?>
+					
+					<?php if($entry['area']!=''):?>
+						<h5><?=$this->translate("Superficie");?></h5>
+						<p>
+							<?php echo $this->escape($entry['area']);?>
+						</p>
+					<?php endif;?>
+										
+					<?php if($entry['presupuesto']!=''):?>
+						<h5><?=$this->translate("Presupuesto");?></h5>
+						<p>
+							<?php echo $this->escape($entry['presupuesto']);?>
+						</p>
+					<?php endif;?>
+					
+					<?php if($entry['photos']!=''):?>
+						<h5><?=$this->translate("Fotografias");?></h5>
+						<p>
+							<?php echo $this->escape($entry['photos']);?>
+						</p>
+					<?php endif;?>
+					
+					<?php if($entry['pdf']!=''):?>
+						<p>
+							Descargar PDF<br/>
+						</p>
+					<?php endif;?>
+												
+				</div>
+			</div>
+			<!-- END : .SUBHEADER -->			
+		<?php endforeach; ?>
+		</div>
+		<!-- END : #PANEL -->

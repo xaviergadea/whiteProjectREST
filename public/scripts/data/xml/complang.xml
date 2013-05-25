@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- complang.xml from http://ajamyajax.com -->
+<legacy>
+  <language>Assembler</language>
+  <language>BASIC</language>
+  <language>COBOL</language>
+  <language>Fortran</language>
+  <language>RPG</language>
+  <language>Pascal</language>
+  <language>C++</language>
+  <language>SmallTalk</language>
+  <language>Java</language>
+  <language>PowerBuilder</language>
+  <language>Informix</language>
+  <language>Forth</language>
+</legacy>

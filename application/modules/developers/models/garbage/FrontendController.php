@@ -1,0 +1,805 @@
+<?php
+
+/**
+ * FrontendController.php is the Frontend controller for White-Project module
+ * *
+ * @author     Agustín Calderón <agustincl@gmail.com>
+ * @copyright  Copyright 2009 White-Project. All Rights Reserved.
+ * @license    http://creativecommons.org/licenses/by-nc-nd/3.0/es/  CC-NC-ND
+ * @category   White-Project
+ * @package    White-Project
+ * @subpackage file
+ * @version    SVN $Id: FrontendController.php 747 2009-12-23 17:35:53Z agustincl $
+ *
+ */
+
+/**
+ * White-Project_FrontendController
+ *
+ * @category   White-Project
+ * @uses       Zend_Controller_Action
+ * @package    White-Project
+ * @subpackage Controller
+ *
+ */
+class White-Project_FrontendController extends Zend_Controller_Action {
+
+    protected $_zfip;
+    private $_hotels;
+    protected $_cook;
+
+    /**
+     * Initialize controller
+     *
+     * Set frontend layout.
+     * Set Dojo header for frontend.
+     *
+     * @return void
+     */
+    public function init() {
+    // Ussing USERS PLUGIN to control frontend layout selection
+        $this->_helper->layout->setLayout('layout_White-Project_frontend');			// Change layout
+        $request = $this->getRequest();
+        $account=$request->account;
+
+        if(isset($account))
+            $this->view->setScriptPath(APPLICATION_PATH.'/modules/whitelabel/views/'.$account.'/scripts/');
+
+        //$this->view->headScript()->appendFile($this->view->baseUrl('/scripts/js/Float.js'));
+
+        $this->view->dojo()->enable();
+        $this->view->dojo()->addStyleSheet(DOJO_PATH.'/dojox/image/resources/Lightbox.css')
+            ->addStyleSheet(DOJO_PATH.'/dojox/layout/resources/FloatingPane.css')
+            ->requireModule('dojox.image.Lightbox')
+            ->requireModule('dijit.Dialog');
+
+        $this->_zfip = new Zend_Session_Namespace('Zfip');
+        $this->_cook = new Zend_Session_Namespace('Cook');
+        $this->_hotels=Zend_Registry::get('hotels');
+    }
+
+    /**
+     * Index iturismo frontend front.
+     *
+     * @return void
+     */
+    public function indexAction() 
+    {    	
+    	Zend_Session::namespaceUnset('Zfip');
+        if(@$request->account)$this->view->title = "".$request->account;
+        $request = $this->getRequest();
+        $this->view->dojo()->enable();
+        $this->view->dojo()->addStyleSheet(DOJO_PATH.'/dojox/image/resources/Lightbox.css')
+        							  ->requireModule('dijit.layout.TabContainer')
+        				   			  ->requireModule('dijit.layout.ContentPane')
+									  ->requireModule('dijit.Dialog')
+        				   			  //->requireModule('dijit.layout.LinkPane')
+         							  ->requireModule('dijit.form.DateTextBox')
+                                      ->requireModule('dijit.form.FilteringSelect')
+                                      ->requireModule('dojo.data.ItemFileReadStore')
+                                      ->requireModule('dijit.form.Button')
+                                      ->requireModule('dijit.form.TextBox')
+                                      ->requireModule('dijit.form.TimeTextBox')
+                                      ->requireModule('dijit.form.ComboBox')
+                                      ->requireModule('dojox.data.JsonRestStore')
+                                      ->requireModule('dojox.data.QueryReadStore')
+                					  ->setDjConfigOption('parseOnLoad', false);				   			  
+     	$this->view->headScript()->appendFile($this->view->baseUrl('/scripts/js/Ajax.js'));
+  		
+		$form_hotels = new White-Project_Form_Searchhotels();
+     	$form_flights = new White-Project_Form_Searchflights();
+    	if($this->_request->isXmlHttpRequest())
+		{ 	
+			$this->_helper->viewRenderer->setNoRender(true);
+			$this->_helper->layout->disableLayout();
+			$rooms=$this->_getParam('rooms',0);	
+			if($rooms)$form_hotels->addRooms($rooms);
+			
+			$ages=$this->_getParam('ages',0);
+			$room=$this->_getParam('room',0);
+			if($ages)$form_hotels->addChildAges($ages, $room);					  			         	        	
+		}
+     	elseif ($this->getRequest()->isPost()) {        	
+        	// Search Hotels
+        	//$this->_forward('hotelssearchresponse', 'frontend', 'White-Project');
+        	//$this->_helper->actionStack('hotelssearchresponse');                       
+        }
+        else {
+            $form_hotels->populate($form_hotels->getValues());
+        }
+        $this->view->form = $form_hotels;
+        $this->view->form_hotels = $form_hotels;
+        $this->view->form_flights = $form_flights;
+
+		//posregional para whitelabel iphotelbarcelona, id Barcelona=953
+		$model_posregionalfunc = new PosRegional_Model_Posregionalfunc();
+		$aHoteles =  $model_posregionalfunc->_aDetallesHotelesPoblacion(953, '', 25);
+		for($iCont=0;$iCont<count($aHoteles);$iCont++)
+			$aHoteles[$iCont]['URL']=$model_posregionalfunc->_sPreparaUrlHotel($aHoteles[$iCont]["PK_HOTEL"]);
+		$this->view->hoteles = $aHoteles;
+		$this->view->aDetallePoblacion=$model_posregionalfunc->_aDetallePoblacion(953);	
+		//mostramos en el mapa solo los que tienen latitud diferente de 0
+		$this->view->gmap_vars_hoteles =  $model_posregionalfunc->_sGMapHotelesPoblacion(953,' AND LATITUD<>0.000000');
+		//comprobamos si se activa algún servicio
+		if ($this->getRequest()->isPost() && $this->_getParam('aservicio',0)=='si') {
+			$this->view->rservicio=$this->_getParam('rservicio',0);
+			$this->view->zoom=$this->_getParam('zoom',0);
+			switch($this->_getParam('rservicio',0)){
+				case 1: $sCategs='C009';break;
+				case 2: $sCategs='C011';break;
+				case 3: $sCategs='C002';break;
+				case 4: $sCategs='H001';break;				
+			}
+			$model_Servicios = new PosRegional_Model_Servicios();
+			$servicios=$model_Servicios->getTable()->fetchAll('CATEGORIA="'.$sCategs.'"','ID ASC')->toArray();
+			$iContVarScript=0;
+			$gmap_vars_servicios='<script>';
+			for($iCont=0; $iCont<count($servicios);$iCont++)
+			{			
+				$gmap_vars_servicios.='
+									latitudes_servicios['.$iContVarScript.']='.$servicios[$iCont]['LATITUD'].';
+									longitudes_servicios['.$iContVarScript.']='.$servicios[$iCont]['LONGITUD'].';
+									nombres_servicios['.$iContVarScript.']="'.$servicios[$iCont]["NOMBRE"].'";
+									direccion_servicios['.$iContVarScript.']="'.$servicios[$iCont]["DIRECCION"].'";
+									telefono_servicios['.$iContVarScript.']="'.$servicios[$iCont]["TELEFONO"].'";
+									web_servicios['.$iContVarScript.']="'.$servicios[$iCont]["WEB"].'";
+									email_servicios['.$iContVarScript.']="'.$servicios[$iCont]["EMAIL"].'";
+								';
+				$iContVarScript++;
+			}
+			$gmap_vars_servicios.='</script>';
+			$this->view->gmap_vars_servicios=$gmap_vars_servicios;			
+		}
+		else {$this->view->rservicio=0;$this->view->zoom=12;}
+        // Flights Offers:
+        $modelFlightsGroup = new Offers_Model_FlightsGroups();
+        $modelFlightsOffers = new Offers_Model_FlightsOffers();
+        $this->view->offerFlightsGroup = $modelFlightsGroup->fetchWhiteLabel(Zend_Registry::get('account'));
+        if ($this->view->offerFlightsGroup) {
+            $this->view->flightsEntries = $modelFlightsOffers->fetchOffers($this->view->offerFlightsGroup->group_id);
+            $date = new Zend_Date($this->view->offerFlightsGroup->date_begin, Zend_Date::ISO_8601);
+            $this->view->flights_date_begin = $date->get('dd-MM-yyyy');
+            $date = new Zend_Date($this->view->offerFlightsGroup->date_end, Zend_Date::ISO_8601);
+            $this->view->flights_date_end = $date->get('dd-MM-yyyy');
+        }
+
+        // Hotels Offers:
+        $modelHotelsGroup = new Offers_Model_HotelsGroups();
+        $modelHotelsOffers = new Offers_Model_HotelsOffers();
+        $this->view->offerHotelsGroup = $modelHotelsGroup->fetchWhiteLabel(Zend_Registry::get('account'));
+        if ($this->view->offerHotelsGroup) {
+            $this->view->hotelsEntries = $modelHotelsOffers->fetchOffers($this->view->offerHotelsGroup->group_id);
+            $date = new Zend_Date($this->view->offerHotelsGroup->date_begin, Zend_Date::ISO_8601);
+            $this->view->hotels_date_begin = $date->get('dd-MM-yyyy');
+            $date = new Zend_Date($this->view->offerHotelsGroup->date_end, Zend_Date::ISO_8601);
+            $this->view->hotels_date_end = $date->get('dd-MM-yyyy');
+        }
+
+        Zend_Session::namespaceUnset('Cook');
+    }
+
+    /**
+     * Hotels Search response.
+     *
+     * @return void
+     */
+    public function hotelbookpresendAction() 
+    {
+		Zend_Debug::dump($_POST);
+		/*-------------------------------------------------------*/
+$url="https://sis-t.sermepa.es:25443/sis/realizarPago";  
+			    
+                $c = curl_init(); 
+                curl_setopt($c, CURLOPT_URL, $url); 
+                curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1); 
+                curl_setopt($c, CURLOPT_POST, 1); 
+                curl_setopt($c, CURLOPT_POSTFIELDS, $values);
+                curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0); 
+                $page = curl_exec($c); 
+                curl_close($c); 
+die;
+				/*-------------------------------------------------------*/
+				/* TRYING CURL POST INJECTION */
+//				$url="http://local_White-Project/White-Project/frontend/readresponse";
+//				$url="http://White-Project.dyndns.org:11002/White-Project/frontend/readresponse";  
+//			    $config=array(
+//			    	'adapter'   => 'Zend_Http_Client_Adapter_Curl',
+//			        'curloptions' => array(			           
+//			            CURLOPT_URL => $url,
+//			    		CURLOPT_POST => true,
+//			            CURLOPT_POSTFIELDS => $values,
+//			            CURLOPT_FOLLOWLOCATION => true
+//			            
+//			        )
+//			    );
+////			    Zend_Http_Client_Adapter_Curl
+//			    $client = new Zend_Http_Client($url, $config);
+//			    $response=$client->request("POST");	
+//			    Zend_Debug::dump($response);
+//			    die;
+		      	/* TRYING CURL POST INJECTION */
+
+    }
+
+    public function hotelbookrequestAction() 
+    {
+        $this->view->headScript()->appendFile($this->view->baseUrl('/scripts/js/Ajax.js'));
+        $this->_zfip->hotel_id=$this->_getParam('hotel_id');
+        $this->_zfip->operator=$this->_getParam('op');
+        $hotel_info=$this->_cook->responseSearchH[$this->_getParam('hotel_id')];
+
+        $show=array(
+        	Zend_Debug::dump($_SESSION, "session", false),    
+        	Zend_Debug::dump($this->_zfip->operator, "operator", false),
+            Zend_Debug::dump($this->_zfip->hotel_id, "hotel_id", false),
+            Zend_Debug::dump($hotel_info, "cook", false),
+            Zend_debug::dump($hotel_info['Hotel_totalprice'], "total_price", false)            
+        );
+
+//        $this->view->debug=$show;
+//        $this->view->regimen = $hotel_info;
+//
+//        $form = new White-Project_Form_HotelRegimens($this->_getParam('hotel_id'));
+//        $this->_zfip->totalprice=$hotel_info['Hotel_totalprice'];
+//        $form->totalprice->setValue=$this->_zfip->totalprice;
+//        
+//        $this->view->regimen_form = $form;
+//        $this->view->totalprice = $this->_zfip->totalprice;
+//        $this->view->checkin = $this->_zfip->desdeFecha;
+//        $this->view->checkout = $this->_zfip->hastaFecha;
+//
+//        if($this->getRequest()->isGet()) {
+//            return;
+//        }
+//        elseif ($this->getRequest()->isPost()) {
+//            $this->renderScript ( 'frontend/index.phtml' );
+//            return;
+//        }
+        
+        
+        
+        /*form*/
+        $form = new White-Project_Form_HotelRegimens($this->_zfip->hotel_id);        
+        $form->totalprice->setValue=$this->_zfip->totalprice;
+       	$request = $this->getRequest();
+       	
+    	// Post Form with validation
+       	if ($this->getRequest()->isPost()) {
+            if ($form->isValid($request->getPost())) {
+                $model = new Iturismo_Model_Banners();
+                $model->save($form->getValues());
+                return $this->_helper->redirector('index');
+                
+//                $this->renderScript ( 'frontend/index.phtml' );
+//            	return;
+            }
+        }
+    	else {
+			$form->populate($form->getValues());
+		}
+
+        $this->view->regimen_form = $form;
+        // To the view
+        $this->view->debug=$show;
+        $this->view->regimen = $hotel_info;        
+        $this->view->totalprice = $this->_zfip->totalprice;
+        $date = new Zend_Date();
+        $date->set($this->_zfip->desdeFecha, Zend_Date::ISO_8601);
+        $this->view->checkin = $date->get('dd-MM-yyyy');
+        $date->set($this->_zfip->hastaFecha, Zend_Date::ISO_8601);
+        $this->view->checkout = $date->get('dd-MM-yyyy');
+    }
+
+    /**
+     * Hotels Search response.
+     *
+     * @return void
+     */
+
+    public function hotelssearchresponseAction()
+    {
+    	$response_gta=array();
+    	$response_transh=array();
+    	
+    
+    	$this->view->headTitle("Hotels search response", 'APPEND');
+        //$this->view->headScript()->appendFile($this->view->baseUrl('/scripts/js/Ajax.js'));
+        $form    = new White-Project_Form_Searchhotels();
+        $request = $this->getRequest();
+       	$method = ucfirst(strtolower($this->getRequest()->getMethod()));
+       	Zend_Debug::dump($method, "metodo:", false);
+       	Zend_Debug::dump(Zend_Session::namespaceIsset('Cook'), "set cook:", false);
+		Zend_Debug::dump($_SESSION, "res ses", false);
+		Zend_Debug::dump($_POST, "post", false);
+		
+		$model_hotels = new Hotels_Model_Hotels();         
+        $model_gta = new Hotels_Model_Gta();
+        $model_transh = new Hotels_Model_Transhotel();
+
+		if (Zend_Session::namespaceIsset('Cook')) {
+       		$response=$this->_cook->responseSearchH;
+       	}
+       	elseif ($this->getRequest()->isPost()) {       	        	
+	            if ($form->isValid($request->getPost())) {
+	            	
+	            	$model= new Hotels_Model_Hotels();
+	             	$ages=$model->getAgesFromArray($request->getPost());
+	             	
+	                $search=$form->getValues();
+	                $search['rooms_data']=$ages['data'];
+	                $search['adults']=$ages['adults'];
+	                $search['childs']=$ages['childs'];
+	            	 
+	            	$model_poblaciones = new Hotels_Model_Poblaciones();
+	            	$poblacion=$model_poblaciones->fetchEntry($search['pobId']);
+	            	
+	            	$this->_zfip->country=$poblacion['FK_PAIS'];
+	            	$this->_zfip->pobId=$search['pobId'];
+	            	$this->_zfip->poblacion=$poblacion['POBLACION'];
+	            	$this->_zfip->desdeFecha=$search['entrada'];
+	            	$this->_zfip->hastaFecha=$search['salida'];	            	
+	            	$this->_zfip->regimen=$search['regimen'];
+	            	$this->_zfip->rooms=$search['rooms'];
+	            	$this->_zfip->rooms_data=$search['rooms_data'];
+	            	$this->_zfip->numadults=$search['adults'];
+            		$this->_zfip->numchilds=$search['childs'];
+            		             	
+	            	/* Check GTA Availability*/
+	       			try {
+//	            		if($this->_zfip->regimen=='SA' or $this->_zfip->regimen=='ALL')
+            				$response_gta = $model_gta->searchHotelwithRooms();          	 		
+					} catch (Zend_Exception $e) {
+					    echo "Caught exception: " . get_class($e) . "\n";
+					    echo "Message: " . $e->getMessage() . "\n";
+					    // Other code to recover from the error
+					}	
+
+					/* Check TRANSHOTEL Availability */
+	           	 	try {
+	            		$response_transh = $model_transh->searchHotelwithRooms();            		   	 		
+					} catch (Zend_Exception $e) {
+					    echo "Caught exception: " . get_class($e) . "\n";
+					    echo "Message: " . $e->getMessage() . "\n";
+					    // Other code to recover from the error
+					}
+
+					/* MERGE */
+	                try {
+	                    $response=$model_hotels->filterResponse($response_gta,$response_transh);
+	                } catch (Zend_Exception $e) {
+	                    echo "Caught exception: " . get_class($e) . "\n";
+	                    echo "Message: " . $e->getMessage() . "\n";
+	                // Other code to recover from the error
+	                }
+	                $this->_cook->responseSearchH=$response;
+            }
+        }
+        elseif ($this->getRequest()->isGet()) {
+            $response=$this->_cook->responseSearchH;
+        }
+
+        // To Debug
+        $show=array(Zend_Debug::dump(count((array)$response_gta), "GTA Count:", false),
+            Zend_Debug::dump(count((array)$response_transh), "TRANSH Count:", false),
+            Zend_Debug::dump(count((array)$response), "MERGE Count:", false),
+            Zend_Debug::dump($response, "Response:", false),
+            Zend_Debug::dump($_SESSION, "Session:", false)
+        );
+        $this->view->debug=$show;
+
+        $formOrder = new White-Project_Form_Ordersearchresults();
+        if ($this->getRequest()->isPost()) {
+            $this->_cook->order=$this->getRequest()->getPost('filters');
+            if($this->_cook->order==NULL)
+                $this->_cook->order='Price';
+        }
+        $formOrder->filters->setValue($this->_cook->order);
+
+        // Apply Order
+        $response=$model_hotels->orderHotels($response,$this->_cook->order);
+        $this->view->formOrder=$formOrder;
+
+       	
+		/* PAGINATE */	
+        // Paginator
+        $page=$this->_getParam('page',1);
+       	$paginator = Zend_Paginator::factory($response);
+    	$paginator->setItemCountPerPage(10);
+    	$paginator->setCurrentPageNumber($page);    	
+        $paginator->setPageRange(3);
+		Zend_Debug::dump($paginator->getCurrentPageNumber(), "paginator page", false);
+        
+       	/* CURRENT PAGE HOTEL DETAILS */ 
+        $chunk=$paginator->getItemsByPage($paginator->getCurrentPageNumber());
+        Zend_Debug::dump($chunk, "chunk empty", false);
+        $chunk=$model_gta->getHotelDetails($chunk);
+        Zend_Debug::dump($chunk, "chunk filled", false);
+		        
+//		$paginator_fill=$model_hotels->fillPaginator($paginator,$chunk);
+        Zend_Debug::dump($paginator, "paginator", false);
+
+        // To view
+        $this->view->entries = $chunk;
+        $this->view->count = count((array)$response);
+		$this->view->entriesp = $paginator;
+
+        $date = new Zend_Date();
+        $date->set($this->_zfip->desdeFecha, Zend_Date::ISO_8601);
+        $this->view->checkin = $date->get('dd-MM-yyyy');
+        $date->set($this->_zfip->hastaFecha, Zend_Date::ISO_8601);
+        $this->view->checkout = $date->get('dd-MM-yyyy');
+        
+        $this->view->rooms = $this->_zfip->rooms;
+        $this->view->numadults = $this->_zfip->numadults;
+        $this->view->numchilds = $this->_zfip->numchilds;
+        $this->view->duration = $model_hotels->getDuration($this->_zfip->desdeFecha,$this->_zfip->hastaFecha);
+        $this->view->poblation = $this->_zfip->poblacion;
+        
+//        $form = new White-Project_Form_HotelRooms($chunk);
+//        $this->view->rooms_form = $form;
+
+    }
+
+
+
+    public function poblationlist2Action() {
+        $this->_helper->viewRenderer->setNoRender(true);
+        //$this->_helper->layout->disableLayout();
+
+        $db=Zend_Registry::get('db');
+
+        $sql="SELECT pk_poblacion,  CONCAT(poblacion,'(',fk_pais,')') as poblacion
+    	      FROM ter_poblaciones     	      
+    	      ORDER BY poblacion ASC";
+        //echo $sql;
+        $result = $db->fetchAll($sql);
+        $dojoData= new Zend_Dojo_Data('pk_poblacion',$result,'poblacion');
+
+        if($this->_request->isXmlHttpRequest()) {
+        //The request was made with JS XmlHttpRequest
+        //$this->_helper->viewRenderer('ajax');
+            return $this->_helper->autoCompleteDojo($dojoData);		// Like a Json file
+        //return $dojoData->toJson();							// Like a screen Json data
+        }
+        elseif($this->getRequest()->isGet()) {
+            echo $dojoData->toJson();
+            $method = ucfirst(strtolower($this->getRequest()->getMethod()));
+            Zend_Debug::dump($method, "metodo");
+        //Zend_Debug::dump($result);
+
+        }
+    }
+    
+	public function poblationlistAction()
+    {
+    	$this->_helper->viewRenderer->setNoRender(true);	
+    	$this->_helper->layout->disableLayout();			
+    	
+    	$db=Zend_Registry::get('db');
+    	$hotels = Zend_Registry::get('hotels');
+    	//echo "paiso".$this->setcountryAction();
+    	//die;    	
+    	if(!isset($this->_zfip->country))
+    		$this->_zfip->country=$hotels->country;
+    	$sql="SELECT PK_POBLACION, POBLACION, FK_PAIS 
+    	      FROM ter_poblaciones
+    	      WHERE FK_PAIS='".$this->_zfip->country."' 
+    		  ORDER BY POBLACION ASC";
+    	      //WHERE FK_PAIS='".$this->Zfip->country."'";
+    	//echo $sql;
+    	$result = $db->fetchAll($sql);
+    	$dojoData= new Zend_Dojo_Data('PK_POBLACION',$result,'POBLACION');
+//    	$method = ucfirst(strtolower($this->getRequest()->getMethod()));
+//		Zend_Debug::dump($method, "metodo");	
+    	    	
+    	if($this->_request->isXmlHttpRequest())
+		{
+		  	//$this->_helper->viewRenderer('ajax');
+		  	//echo $dojoData->toJson();
+		  	return $this->_helper->autoCompleteDojo($dojoData);		// Like a Json file
+			//return $dojoData->toJson();							// Like a screen Json data			
+		}   
+		elseif($this->getRequest()->isGet())
+		{			
+			echo $dojoData->toJson();
+		} 	    	
+		
+    }
+    
+	protected function setcountryAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);	
+    	$this->_helper->layout->disableLayout();
+    	
+    	$form = new Hotels_Form_Search();
+    	$form->pobId->getMultiOptions();
+    	
+        if (null === $this->_getParam('id')) { 
+            $this->_zfip->country='ES';
+        }
+        else{
+        	$this->_zfip->country=$this->_getParam('id');
+        }
+       		
+       // echo "este pais:".$this->_zfip->country;        
+        return $this->_zfip->country;
+    }
+    
+	
+    
+    
+
+    public function calvalueAction() {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $cook=$this->_getParam('hotel_id');
+        $room=$this->_getParam('room');
+        $anulation=$this->_getParam('anulation');
+        $ipeuros=$this->_getParam('ipeuros');
+
+        // TODO: parametrizar
+        $ipeuros_cash=0.025;
+
+        //    	$form = new White-Project_Form_HotelRegimens($cook);
+
+        if($this->_request->isXmlHttpRequest()) {
+        //The request was made with JS XmlHttpRequest
+            if(isset($room))
+                $this->_zfip->totalprice=$this->_cook->responseSearchH[$cook]['Hotel_rooms'][$room]["Hotel_room_price"];
+            // String to Currency
+
+			// TODO 
+			// Set in bootstrap
+            $locale = new Zend_Locale('es_ES');
+            Zend_Registry::set('Zend_Locale', $locale);
+			
+            Zend_Debug::dump($this->_zfip->totalprice, "price", false);
+            $model_hotel=new Hotels_Model_Hotels();
+            $this->_zfip->totalprice=$model_hotel->cleanPrice($this->_zfip->totalprice);
+            $number = Zend_Locale_Format::toNumber($this->_zfip->totalprice,
+                array(
+                'locale' => $locale,
+                'precision' => 2));
+            Zend_Debug::dump($number, "total", false);
+       
+            $number = Zend_Locale_Format::getNumber($number,
+                array(
+                'locale' => $locale,
+                'precision' => 2));
+            Zend_Debug::dump($number, "total", false);           
+
+            $currency = new Zend_Currency(array('precision' => 2,
+                'format' => $locale,
+                'display' => Zend_Currency::USE_NAME,
+                'position' => Zend_Currency::RIGHT
+            ));
+
+            $currency->setValue($number);
+            Zend_Debug::dump($this->_zfip->totalprice, "total", false);
+
+            if($anulation=="true")
+                $currency->add($this->_hotels->cancellation->percentage*$number);
+            if($ipeuros=="true")
+                $currency->add($ipeuros_cash);
+            $this->_zfip->totalprice=$currency;
+            echo $this->_zfip->totalprice;
+        }
+    }
+
+    /**
+     * Login form frontend.
+     *
+     * @return void
+     */
+    public function loginuserAction() {
+    //		$this->_helper->layout->setLayout('login');			// Change layout
+
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+
+        $this->view->headTitle("Login", 'APPEND');
+        $request = $this->getRequest();
+
+        //        $form    = new Users_Form_AuthorLogin();
+        //        $form->setName('registration');
+
+        if (!$this->getRequest()->isPost()) {
+            $this->view->form = $form;
+            echo "not post data";
+        //            return;
+        }
+        //        elseif (!$form->isValid($_POST)) {
+        //            $this->view->failedValidation = true;
+        //            $this->view->form = $form;
+        //            echo "not post data";
+        //            return;
+        //        }
+
+        //        $values = $form->getValues();
+        $username=$request->getPost('email');
+        $password=$request->getPost('pass');
+
+
+        // Setup DbTable adapter
+        $adapter = new Zend_Auth_Adapter_DbTable(Zend_Registry::get('db'));
+        $adapter->setTableName('acl_users');
+        $adapter->setIdentityColumn('email');
+        $adapter->setCredentialColumn('password');
+        $adapter->setIdentity($username);
+        $adapter->setCredential(hash('SHA256', $password));
+
+        // authentication attempt
+        $auth = Zend_Auth::getInstance();
+        $result = $auth->authenticate($adapter);
+        $table = new Users_Model_DbTable_Users;
+        // authentication succeeded
+        if ($result->isValid()) {
+
+            $status=$adapter->getResultRowObject()->status;
+            //Zend_debug::dump($status);
+
+            if($status==1) {
+                $auth->getStorage()
+                    ->write($adapter->getResultRowObject(null, 'password'));
+                $this->view->passedAuthentication = true;
+                $rowset = $table->fetchRow("email ='".$username."'");
+                $role = new Users_Model_DbTable_Roles;
+                $rowset_role = $role->fetchRow("role_id ='".$rowset['role_id']."'");
+                echo "Authenticated!!!!";
+                //$this->_helper->redirector('index', 'index', $rowset_role['prefered_uri']);
+                return;
+            }
+            else {
+                $this->view->statusState = true;
+                $this->view->email=$username;
+            }
+        } else { // or not! Back to the login page!
+            $this->view->failedAuthentication = true;
+            $rowset = $table->fetchRow("email ='".$username."' and status=1");
+            $rowCount = count($rowset);
+            if ($rowCount > 0) {
+            //echo "found $rowCount rows";
+            //$this->view->email=$username;
+            //$this->view->emailExist = true;
+                echo "Check your username or password";
+            } else {
+            //$this->_helper->redirector('index', 'index', 'admin');
+                echo "Check your username / password";
+            }
+        //$this->view->loginForm = $form;
+        }
+    //echo "authentication Done!!!";
+    }
+
+    public function loginuser2Action() {
+        $method = ucfirst(strtolower($this->getRequest()->getMethod()));
+        Zend_Debug::dump($method, "metodo:", false);
+
+        $request = $this->getRequest();
+        Zend_Debug::dump($request->getPost('email'), "getpost:", false);
+        Zend_Debug::dump($request->getParams(), "getpost:", false);
+
+
+
+        //      $form    = new Users_Form_AuthorLogin();
+        //      $form    = new White-Project_Form_Loginuser();
+        //    	$values = $form->getValues();
+
+        if (!$this->getRequest()->isPost()) {
+        //            $this->view->form = $form;
+            $this->_helper->viewRenderer->setNoRender(true);
+            $this->_helper->layout->disableLayout();
+            echo "not post data";
+        //return;
+        }
+        //        } elseif (!$form->isValid($_POST)) {
+        ////            $this->view->failedValidation = true;
+        ////            $this->view->form = $form;
+        //            $this->_helper->viewRenderer->setNoRender(true);
+        //    		$this->_helper->layout->disableLayout();
+        //    		echo "not valid data";
+        //            return;
+        //        }
+        //
+
+        // Authentication adapter
+        $adapter = new Zend_Auth_Adapter_DbTable(Zend_Registry::get('db'));
+        $adapter->setTableName('acl_users');
+        $adapter->setIdentityColumn('email');
+        $adapter->setCredentialColumn('password');
+        $adapter->setIdentity($request->getPost('email'));
+        $adapter->setCredential(
+            hash('SHA256', $request->getPost('pass'))
+        );
+
+        // Authentication attempt
+        $auth = Zend_Auth::getInstance();
+        $result = $auth->authenticate($adapter);
+        $table = new Users_Model_DbTable_Users;
+        // authentication succeeded
+        if ($result->isValid()) {
+
+            $status=$adapter->getResultRowObject()->status;
+            //Zend_debug::dump($status);
+
+            if($status==1) {
+                $auth->getStorage()
+                    ->write($adapter->getResultRowObject(null, 'password'));
+                $this->view->passedAuthentication = true;
+                $rowset = $table->fetchRow("email ='".$values['name']."'");
+                $role = new Users_Model_DbTable_Roles;
+                $rowset_role = $role->fetchRow("role_id ='".$rowset['role_id']."'");
+                $this->_helper->redirector('index', 'index', $rowset_role['prefered_uri']);
+                return;
+            }
+            else {
+                $this->view->statusState = true;
+                $this->view->email=$values['name'];
+            }
+        } else { // or not! Back to the login page!
+            $this->view->failedAuthentication = true;
+            $rowset = $table->fetchRow("email ='".$values['name']."' and status=1");
+            $rowCount = count($rowset);
+            if ($rowCount > 0) {
+            //echo "found $rowCount rows";
+                $this->view->email=$values['name'];
+                $this->view->emailExist = true;
+            } else {
+                $this->_helper->redirector('index', 'index', 'admin');
+            }
+            $this->view->loginForm = $form;
+        }
+
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        echo "authentication Done!!!";
+
+    }
+
+    /**
+     * Logout frontend.
+     *
+     * @return void
+     */
+    public function logoutuserAction() {
+    //$this->view->form = $form;
+        Zend_Auth::getInstance()->clearIdentity();
+        Zend_Session::destroy();
+        $this->renderScript ( 'frontend/index.phtml' );
+    }
+
+    /**
+     * flightspoblationlist frontend. Make an array of airports of all the workd.
+     *
+     * @return      void (echo results)
+     */
+    public function flightspoblationlistAction() {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $db=Zend_Registry::get('db');
+
+        $sql="SELECT PK_AEROPUERTO, CIUDAD_AEROPUERTO, NOMBRE_AEROPUERTO, IATA_AEROPUERTO,PAIS_AEROPUERTO FROM wse_aeropuertos";
+
+        $result = $db->fetchAll($sql);
+
+        for($cont=0;$cont<count($result);$cont++) {
+            foreach($result[$cont] as $key => $value) {
+                $return_array[$cont][$key]=$value;
+            }
+            $return_array[$cont]['NOMBRE']=$return_array[$cont]["CIUDAD_AEROPUERTO"].' - '.$return_array[$cont]["PAIS_AEROPUERTO"].' ('.$return_array[$cont]["NOMBRE_AEROPUERTO"].') |'.$return_array[$cont]["IATA_AEROPUERTO"];
+        }
+
+        $dojoData= new Zend_Dojo_Data('PK_AEROPUERTO',$return_array,'NOMBRE');
+
+        if($this->_request->isXmlHttpRequest()) {
+            return $this->_helper->autoCompleteDojo($dojoData);
+        }
+        elseif($this->getRequest()->isGet()) {
+            $method = ucfirst(strtolower($this->getRequest()->getMethod()));
+            echo $dojoData->toJson();
+        }
+    }
+}

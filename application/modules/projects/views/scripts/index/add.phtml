@@ -1,0 +1,64 @@
+<p>Formulario para agregar Proyectos.</p>
+<p>Formulario para editar Proyectos.</p>
+<?php
+	//echo $this->form;
+?>
+<script type="text/javascript">
+//<![CDATA[
+	dojo.require("dijit.form.Form");
+    dojo.require("dijit.dijit");
+    dojo.require("dijit.layout.ContentPane");
+    dojo.require("dijit.layout.TabContainer");
+    dojo.require("dojo.parser");
+	dojo.addOnLoad(function() {
+	    dojo.forEach(zendDijits, function(info) {
+	        var n = dojo.byId(info.id);
+	        if (null != n) {
+	            dojo.attr(n, dojo.mixin({ id: info.id }, info.params));
+	        }
+	    });
+	    dojo.parser.parse();
+	});
+  	dojo.require("dijit.Dialog");
+    var zendDijits = [{"id":null,"params":{"dojoType":"dijit.form.Form"}}];
+//]]>
+
+</script>
+
+<div dojoType="dijit.Dialog" id="dialog1" title="First Dialog" style="height:450px; width:700px"
+    execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
+    <button dojoType="dijit.form.Button" type="submit">OK</button></td>
+</div>
+
+<form enctype="application/x-www-form-urlencoded" isEdit="1" method="post" >
+<div style="width: 700px; height: 650px">
+    <div dojoType="dijit.layout.TabContainer" style="width: 100%; height: 100%;">
+        <div dojoType="dijit.layout.ContentPane" title="General" selected="true">          
+            <?php
+                echo $this->formgen;
+             ?>
+        </div>
+        
+        <div dojoType="dijit.layout.ContentPane" title="Español">
+            <?php
+                echo $this->formesp;
+             ?>
+        </div>
+        <div dojoType="dijit.layout.ContentPane" title="Catalá">
+            <?php
+                echo $this->formcat;
+             ?>
+        </div>
+        <div dojoType="dijit.layout.ContentPane" title="English">
+            <?php
+                echo $this->formeng;
+             ?>
+        </div>
+    </div>
+</div>
+
+<?php
+	echo $this->formsubmit;
+//	echo $this->form;
+?>
+</form>

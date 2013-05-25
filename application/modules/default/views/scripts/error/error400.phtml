@@ -1,0 +1,66 @@
+<?php
+echo '<?xml version="1.0" encoding="UTF-8" ?>';
+echo $this->doctype();
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		 
+		<?= $this->headTitle($this->escape($this->title)) ?>
+		<?= $this->headLink(array('rel' => 'shortcut icon','href' => $this->baseUrl().'/images/favicon.ico'),'PREPEND') ?>
+		<?= $this->headLink()->setStylesheet($this->baseUrl().'/styles/resources/css/reset.css', 'screen, projection')?>
+		<?= $this->headLink()->setStylesheet($this->baseUrl().'/styles/resources/css/style.css', 'screen, projection')?>
+		<?= $this->headLink()->setStylesheet($this->baseUrl().'/styles/resources/css/invalid.css', 'screen, projection')?>				
+		<?= $this->headLink()->setStylesheet($this->baseUrl().'/styles/resources/css/ie.css', 'screen, projection', 'lte IE 7')?>
+		<?php
+	    echo $this->headScript();
+	    echo $this->headStyle();
+	    ?>				
+		<!-- Internet Explorer .png-fix -->
+		
+		<!--[if IE 6]>
+			<script type="text/javascript" src="resources/scripts/DD_belatedPNG_0.0.7a.js"></script>
+			<script type="text/javascript">
+				DD_belatedPNG.fix('.png_bg, img, li');
+			</script>
+		<![endif]-->
+		
+	</head>
+
+	<body id="login">
+		
+		<div id="login-wrapper" class="png_bg">
+			<div id="login-top">
+			
+				<h1>Jansanda, de la villa, de paauw. Arquitectes</h1>
+				<img id="logo" src="/styles/resources/images/logo.png" alt="Simpla Admin logo" />
+			</div> <!-- End #logn-top -->
+			<?php echo $this->layout()->content ?>
+			<div id="main-content" style="width:400px"> <!-- Main Content Section with everything -->
+				<div class="notification attention png_bg">
+					<div>
+						<h2> Bad Request</h1>
+						<h2>Error 400</h2>
+						    <p>
+						    	No page exists at your destination address.<br/>
+						    	Try to link from <a href="http://www.factoryofdinners.com"><strong>our home page</strong></a>
+						    	<br/>
+						    </p>
+    
+					</div>
+				</div>
+			</div>	
+			
+						
+		</div> <!-- End #login-wrapper -->
+		<div id="footer_login" style="text-align:center">
+		  
+		  Copyright &copy;
+		  <script type="text/javascript">var dt = new Date(); document.write(dt.getFullYear());</script>
+		  jdvdp S.L.P., All Rights Reserved
+		 
+		</div>
+  	</body>
+  
+
+</html>    

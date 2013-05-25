@@ -1,0 +1,107 @@
+<p>
+	<a href="<?php echo $this->url(array('module'=>'admin','controller'=>'templates','action'=>'add'), 'default');?>">Agregar nuevo template</a>
+</p>
+
+<table cellspacing="0" cellpadding="0" border="0"><!-- Table -->
+	<thead>
+		<tr>
+			<th><?=$this->translate("Wlabel");?></th>
+			<th><?=$this->translate("Layout");?></th>	
+			<th><?=$this->translate("Template");?></th>		
+			<th><?=$this->translate("Status");?></th>	
+			<th><?=$this->translate("Actions");?></th>	
+	        <th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php foreach($this->entries as $entry) : ?>
+		<tr class="<?php echo $this->cycle(array("even","odd"))->next()?>" >
+			<td><?php echo $this->escape($entry['label']);?></td>
+			<td><?php echo $this->escape($entry['layout']);?></td>
+			<td><?php echo $this->escape($entry['template']);?></td>
+			<td><?php echo $this->escape($entry['status']);?> <a href="<?php echo $this->url(array('module'=>'admin','controller'=>'templates','action'=>'toggle', 'id'=>$entry['id'], 'tooglevar'=>'status', 'status'=>$entry['status']));?>">Toggle</a></td>
+
+		<td>
+		<a href="<?php echo $this->url(array('module'=>'admin','controller'=>'templates','action'=>'delete', 'id'=>$entry['id']), 'default');?>">Borrar</a>
+		<a href="<?php echo $this->url(array('module'=>'admin','controller'=>'templates','action'=>'edit', 'id'=>$entry['id']));?>">Editar</a>
+		</td>
+		<td>
+			<a href="#"><img src="<?=$this->adminTemplateDir('/assets/action_add.png')?>" alt="Add" /></a>
+			<a href="#"><img src="<?=$this->adminTemplateDir('/assets/action_remove.png')?>" alt="Remove" /></a>
+			<a href="#"><img src="<?=$this->adminTemplateDir('/assets/action_check.png')?>" alt="Check" /></a>
+			<a href="<?php echo $this->url(array('module'=>'admin','controller'=>'templates','action'=>'delete', 'id'=>$entry['id']), 'default');?>"><img src="<?=$this->adminTemplateDir('/assets/action_delete.png')?>" alt="Delete" /></a>
+			<a href="#"><img src="<?=$this->adminTemplateDir('/assets/folder.png')?>" alt="Folder" /></a>
+			<a href="#"><img src="<?=$this->adminTemplateDir('/assets/letter.png')?>" alt="Letter" /></a>
+		</td>
+						
+		</tr>
+	<?php endforeach; ?>
+	</tbody>
+</table>
+
+			
+				<table cellspacing="0" cellpadding="0" border="0"><!-- Table -->
+					<thead>
+						<tr>
+							<th><input type="checkbox" class="checkall" /></th>
+							<th>No</th>
+							<th>Status</th>
+							<th>Customer Name</th>
+							<th>Views</th>
+							<th>Date</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+				
+					<tbody>
+						<tr>
+							<td><input type="checkbox" /></td>
+							<td>1</td>
+							<td>Approved</td>
+							<td>Lorem ipsum</td>
+							<td>273</td>
+							<td>6.12.2009</td>
+							<td><a href="#"><img src="<?=$this->adminTemplateDir('/assets/action_add.png')?>" alt="Add" /></a><a href="#"><img src="<?=$this->adminTemplateDir('/assets/action_remove.png')?>" alt="Remove" /></a><a href="#"><img src="<?=$this->adminTemplateDir('/assets/action_check.png')?>" alt="Check" /></a><a href="#"><img src="<?=$this->adminTemplateDir('/assets/action_delete.png')?>" alt="Delete" /></a><a href="#"><img src="<?=$this->adminTemplateDir('/assets/folder.png')?>" alt="Folder" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/letter.png" alt="Letter" /></a></td>
+						</tr>
+						
+						<tr class="alt">
+							<td><input type="checkbox" /></td>
+							<td>2</td>
+							<td>Approved</td>
+							<td>Ipsum Dolor</td>
+							<td>5096</td>
+							<td>1.23.2009</td>
+							<td><a href="#"><img src="<?=$this->adminTemplateDir('/assets/action_add.png')?>" alt="Add" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_remove.png" alt="Remove" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_check.png" alt="Check" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_delete.png" alt="Delete" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/folder.png" alt="Folder" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/letter.png" alt="Letter" /></a></td>
+						</tr>
+						
+						<tr>
+							<td><input type="checkbox" /></td>
+							<td>3</td>
+							<td>Pending</td>
+							<td>Dolor sit</td>
+							<td>0</td>
+							<td>3.17.2009</td>
+							<td><a href="#"><img src="<?=$this->adminTemplateDir('/assets/action_add.png')?>" alt="Add" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_remove.png" alt="Remove" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_check.png" alt="Check" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_delete.png" alt="Delete" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/folder.png" alt="Folder" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/letter.png" alt="Letter" /></a></td>
+						</tr>
+						
+						<tr class="alt">
+							<td><input type="checkbox" /></td>
+							<td>4</td>
+							<td>Declined</td>
+							<td>Sit Amet</td>
+							<td>192</td>
+							<td>9.30.2009</td>
+							<td><a href="#"><img src="<?=$this->adminTemplateDir('/assets/action_add.png')?>" alt="Add" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_remove.png" alt="Remove" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_check.png" alt="Check" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_delete.png" alt="Delete" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/folder.png" alt="Folder" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/letter.png" alt="Letter" /></a></td>
+						</tr>
+						
+						<tr>
+							<td><input type="checkbox" /></td>
+							<td>5</td>
+							<td>Pending</td>
+							<td>Amet Lorem</td>
+							<td>501</td>
+							<td>10.01.2009</td>
+							<td><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_add.png" alt="Add" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_remove.png" alt="Remove" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_check.png" alt="Check" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/action_delete.png" alt="Delete" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/folder.png" alt="Folder" /></a><a href="#"><img src="<?=$this->adminTemplateDir()?>/assets/letter.png" alt="Letter" /></a></td>
+						</tr>
+					</tbody>
+				</table> <!-- END Table -->

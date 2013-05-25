@@ -1,0 +1,81 @@
+<br/>
+<h2><?=$this->translate("Data Dump");?></h2>
+
+<style>
+/* CSS Columns */
+#maincol {
+	position:relative;
+	margin:0;
+	padding:10px;
+	}
+#leftcol { 
+	position:relative;
+	top:-10px;
+	left:-10px;
+	float:left;
+	width:220px;  /* for IE5/WIN */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width:200px; /* actual value */
+	margin:0 0 -10px 0;
+	padding:10px;
+	background:#ECB9E8;
+	z-index:100;
+	}
+#rightcol {
+	position:relative;
+	top:-10px;
+	right:-10px;
+	float:right;
+	width:220px;  /* for IE5/WIN */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width:200px; /* actual value */
+	margin:0 0 -10px 0;
+	padding:10px;
+	background:#D7C4FA;
+	z-index:99;
+	}
+#centercol {
+	position:relative;
+	padding:0 240px;
+	}
+#centercol a {
+	color:#666;
+	}
+#centercol a:hover {
+	border-bottom:1px solid;
+	color:#9343B9;
+	}
+
+</style>
+<div id="maincol"><!-- begin main content area -->
+				
+			<div id="leftcol"><!-- begin leftcol -->
+				<p>Dump all tables.</p>
+				<?=$this->aclLink(array('module'=>'admin',
+					'controller'=>'index',
+					'action'=>'datadump',
+					'label'=>$this->translate("Dump All Database")
+				)); ?>&nbsp;
+			</div><!-- end leftcol -->
+				
+			<div id="rightcol"><!-- begin rightcol -->
+				<p>Use after commit.</p>
+				<?=$this->aclLink(array('module'=>'admin',
+					'controller'=>'index',
+					'action'=>'restorepermissionsdump',
+					'label'=>$this->translate("Restore Permissions Tables")
+				)); ?>
+			</div><!-- end righttcol -->
+			
+			<div id="centercol"><!-- begin centercol -->
+				<p>Use before commit.</p>
+				<?=$this->aclLink(array('module'=>'admin',
+					'controller'=>'index',
+					'action'=>'permissionsdump',
+					'label'=>$this->translate("Dump Permissions Tables")
+				)); ?>&nbsp;
+			</div><!-- end centercol -->
+				
+		</div><!-- end main content area -->

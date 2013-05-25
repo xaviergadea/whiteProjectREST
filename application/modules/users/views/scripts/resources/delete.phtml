@@ -1,0 +1,10 @@
+<p>Seguro que deseas borrar
+'<?php echo $this->escape($this->entry['resource']); ?>' en el modulo
+'<?php echo $this->escape($this->entry['module_id']); ?>'?
+</p>
+<form action="<?= $this->url(array('module' => 'users','controller' => 'resources','action'=>'delete'), 'default', true) ?>" method="post">
+<div>
+<input type="hidden" name="uid" value="<?php echo $this->entry['uid']; ?>" />
+<input type="submit" name="del" value="Si" />
+<input type="submit" name="del" value="No" />
+</div>

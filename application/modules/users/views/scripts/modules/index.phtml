@@ -1,0 +1,19 @@
+<p>
+	<a href="<?php echo $this->url(array('controller'=>'modules','action'=>'add'), 'default');?>">Agregar nuevo módulo</a>
+</p>
+<table>
+	<tr>
+		<th>module_name</th>		
+        <th>&nbsp;</th>
+	</tr>
+	<?php foreach($this->entries as $entry) : ?>
+		<tr class="<?php echo $this->cycle(array("even","odd"))->next()?>" >
+			<td><?php echo $this->escape($entry['module_name']);?></td>
+
+		<td>
+		<a href="<?php echo $this->url(array('module'=>'users','controller'=>'modules','action'=>'edit', 'module_id'=>$entry['module_id']));?>">Editar</a>
+		<a href="<?php echo $this->url(array('module'=>'users','controller'=>'modules','action'=>'delete', 'module_id'=>$entry['module_id']), 'default');?>">Borrar</a>
+		</td>
+		</tr>
+	<?php endforeach; ?>
+</table>

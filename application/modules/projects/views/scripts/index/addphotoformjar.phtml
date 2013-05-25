@@ -1,0 +1,19 @@
+	<div id="insertphoto-modal-jar">
+	<h3>Upload Photo</h3>	
+    <div id="file-uploader-demo1">		
+		<noscript>			
+			<p>Please enable Java to use file uploader.</p>
+			<!-- or put a simple form for upload here -->
+		</noscript>         
+	</div>
+	<div>
+	<applet id="jumpLoaderApplet" name="jumpLoaderApplet"
+			code="jmaster.jumploader.app.JumpLoaderApplet.class"
+			archive="/scripts/jar/jumploader_z_2.17.1.jar"
+			width="750"
+			height="500" mayscript>
+
+                      <param name="uc_uploadUrl" value="/projects/ajax/addjarphoto/id/<?=$this->dir;?>"/>
+	</applet>
+	</div>
+    </div>

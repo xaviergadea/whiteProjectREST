@@ -1,0 +1,166 @@
+	<style type="text/css">
+  @import "/dojotoolkit/dojox/image/resources/image.css";
+</style>
+<script type="text/javascript">
+  dojo.require("dojox.image.SlideShow");
+  dojo.require("dojo.data.ItemFileReadStore");
+  dojo.require("dojo.parser");
+</script>
+<div jsId="imageItemStore" dojoType="dojo.data.ItemFileReadStore"
+  url="featureexplorer/Dojox/Image/images.json"></div>
+
+<div id="slideshow2" dojoType="dojox.image.SlideShow" noLink="true" 
+  loop="false" autoLoad="false"
+  slideshowInterval="1" fixedHeight="true">
+  <script type="dojo/connect">
+    //This function runs when the widget has finished constructing
+    //It sets the datastore to read the image data from
+    this.setDataStore(
+      //The image store object, defined in the DIV above this one
+      imageItemStore,
+      //The request object to use,
+      { query: {}, count:5 },
+      //The names of the attributes to read from the data store
+      {
+        imageThumbAttr: "thumb",
+        imageLargeAttr: "large"
+      }
+    );
+  </script>
+</div>
+	
+	
+	
+	<!-- start : Picachoose jscripts and css -->
+
+
+<link type="text/css" href="/styles/css/right/css/styles.css" rel="stylesheet" />
+
+<script type="text/javascript" src="/scripts/js/jquery.pikachoose.js"></script>
+<script type="text/javascript" src="/scripts/js/jquery.jcarousel.min.js"></script>
+
+<script language="javascript">
+	<!--
+	$(document).ready(
+		function (){
+			$("#pikame").PikaChoose();
+
+			$("#pikame").jcarousel({scroll:4,
+				vertical:true,					
+				initCallback: function(carousel) 
+				{
+			        $(carousel.list).find('img').click(function() {
+			        	//console.log($(this).parents('.jcarousel-item').attr('jcarouselindex'));
+			            carousel.scroll(parseInt($(this).parents('.jcarousel-item').attr('jcarouselindex')));
+			        });
+			    }
+		    });
+		});		
+	-->
+</script>
+
+<!-- .scrollpanel -->
+		<div class="scroll-pane">
+		<?php foreach($this->entries as $entry) : ?>
+			<!-- START : .PICACHOOSE -->
+			<div class="pikachoose">				
+				<ul id="pikame" class="jcarousel-skin-pika">
+					<?php 
+					$images=explode(',',$entry['images']);
+					foreach($images as $image):
+					?>
+					<li>
+						<img src="/assets/proyectos/<?=$entry['category_short'];?>/<?=$entry['short_name'];?>/<?=$image;?>"/>
+					</li>
+					<?php endforeach;?>
+				</ul>
+			</div>	
+			<!-- END : .PICACHOOSE -->
+			<div class="clear"></div>
+			<!-- START : .SUBHEADER -->
+			<div id = "infoag">
+				<div class="subheader">	
+					
+						<?php if(isset(Zend_Auth::getInstance()->getIdentity()->user_name)
+								and Zend_Auth::getInstance()->getIdentity()->user_name):?>	
+						<div id="frontadmin">				
+							<a target="_blank" href="<?php echo $this->url(array('module'=>'projects','controller'=>'index','action'=>'edit', 'project_id'=>$entry['id']));?>">Editar</a>
+							<a target="_blank" href="<?php echo $this->url(array('module'=>'projects','controller'=>'index','action'=>'delete', 'project_id'=>$entry['id']), 'default');?>">Borrar</a>
+						</div>
+						<?php endif;?>
+									
+					<p class="simple">
+						<?php echo $this->escape($entry['project']);?><br/>
+						<?php echo $this->escape($entry['place']);?>, <?php echo $this->escape($entry['year']);?>
+					</p>				
+				</div>	
+				<div class="two_third">
+					<p>
+					<?php echo $this->escape($entry['description']);?>
+					</p>
+				</div>
+	<!--			<div class="one_third" ></div>-->
+				<div class="one_third last">					
+								
+					
+					<?php if($entry['promotors']!=''):?>
+						<h5><?=$this->translate("Cliente");?></h5>
+						<p>
+							<?php echo $this->escape($entry['promotors']);?>
+						</p>
+					<?php endif;?>											
+					
+					<?php if($entry['associates']!=''):?>
+						<h5><?=$this->translate("Asociados");?></h5>
+						<p>
+							<?php echo $this->escape($entry['associates']);?>
+						</p>
+					<?php endif;?>
+					
+					<?php if($entry['constructor']!=''):?>
+						<h5><?=$this->translate("Colaborando con");?></h5>
+						<p>
+							<?php echo $this->escape($entry['constructor']);?>
+						</p>
+					<?php endif;?>
+					
+					<?php if($entry['colaborators']!=''):?>
+						<h5><?=$this->translate("Consultores");?></h5>
+						<p>
+							<?php echo $this->escape($entry['colaborators']);?>
+						</p>
+					<?php endif;?>
+					
+					<?php if($entry['area']!=''):?>
+						<h5><?=$this->translate("Superficie");?></h5>
+						<p>
+							<?php echo $this->escape($entry['area']);?>
+						</p>
+					<?php endif;?>
+										
+					<?php if($entry['presupuesto']!=''):?>
+						<h5><?=$this->translate("Presupuesto");?></h5>
+						<p>
+							<?php echo $this->escape($entry['presupuesto']);?>
+						</p>
+					<?php endif;?>
+					
+					<?php if($entry['photos']!=''):?>
+						<h5><?=$this->translate("Fotografias");?></h5>
+						<p>
+							<?php echo $this->escape($entry['photos']);?>
+						</p>
+					<?php endif;?>
+					
+					<?php if($entry['pdf']!=''):?>
+						<p>
+							Descargar PDF<br/>
+						</p>
+					<?php endif;?>
+												
+				</div>
+			</div>
+			<!-- END : .SUBHEADER -->			
+		<?php endforeach; ?>
+		</div>
+		<!-- END : #PANEL -->

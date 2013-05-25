@@ -1,0 +1,55 @@
+<ul id="main-nav">  <!-- Accordion Menu -->
+
+<?php
+$acl = Users_Model_Acl::getInstance();
+$list=$acl->listResourceByUser();
+$html = array();
+//echo "<pre>";
+//print_r($this->container);
+//echo "</pre>";
+foreach ($this->container as $page) 
+{
+//    Zend_Debug::dump($page->current());
+	$permission=$list['allowed'][$page->resource.' - '.$page->privilege];
+	if($permission=='allowed'){
+		$html[] = "<li>";
+	    $href = $page->getHref();
+	    		if ($href) {	    			
+//	    			if($page->isActive(true)) $html[] = " selected";
+	    			$html[] = "<a href=\"".$href."\" class=\"nav-top-item ";	     
+	    			if($page->isActive(true)) 
+	    				$html[] = "current";
+	    			if(empty($page->pages))
+	    				$html[] = " no-submenu";
+	    			$html[] = "\"> ".$this->translate($page->getLabel())."
+							   </a>";	
+	            }
+
+//		if($page->isActive(true))
+		    if (!empty($page->pages))
+		    {
+		        $html[] = "<ul>";    	
+		        foreach ($page->pages as $subpage) 
+		        {            
+		        	$permission_sub=$list['allowed'][$subpage->resource.' - '.$subpage->privilege];
+					if($permission_sub=='allowed'){
+			            $html[] = "<li>";
+			            $href = $subpage->getHref();
+			            if ($href) {
+			            	$html[] = "<a href=\"{$href}\"";
+			            	if($subpage->isActive(true)) $html[] = " class=\"current\"";
+			            	$html[] = ">".$this->translate($subpage->getLabel())."</a>";
+			            }
+			            else $html[] = $this->translate($subpage->getLabel());         
+			            $html[] = "</li>";
+					}
+		        }
+		        $html[] = "</ul>";
+		    }
+		$html[] = "</li>";	    
+	}
+}
+echo join(PHP_EOL, $html);
+?>
+
+</ul> <!-- End #main-nav -->

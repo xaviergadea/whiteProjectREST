@@ -1,0 +1,17 @@
+<div id="header">
+    <div class="container">
+      <div class="content">
+      	<img src="/assets/ork_trans.png" alt="logo"  id="logo"  />    
+      	  <div class="head-logo">
+          <ul>            
+            <?php if(@Zend_Auth::getInstance()->getIdentity()->user_name):?>
+        	<li><?=$this->translate("Welcome");?> <strong><?=Zend_Auth::getInstance()->getIdentity()->user_name;?></strong></li> 						
+			<li><a href="<?=$this->url(array('module' => 'users', 'controller'=>'author', 'action'=>'logout'), 'default', true);?>"><?=$this->translate("Log out");?></a></li>
+			<?php endif; ?>
+			<?php include_once(APPLICATION_PATH . '/modules/default/forms/Languages.php');?>
+			<li><?php $form = new Default_Form_Languages();	echo $form;?></li>           
+          </ul>
+          </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,30 @@
+<p>
+	<a href="<?php echo $this->url(array('controller'=>'permissions','action'=>'add'), 'default');?>">Agregar nuevo permission</a>
+</p>
+<?= $this->form ?>
+<table>
+	<tr>
+		<th>Role</th>
+		<th>Resource</th>
+        <th>permission</th>
+        <th>name</th>
+        <th>menu</th>
+        <th>&nbsp;</th>
+	</tr>
+	<?php foreach($this->paginator as $entry) : ?>
+		<tr class="<?php echo $this->cycle(array("even","odd"))->next()?>" >
+			<td><?php echo $this->escape($entry['role_name']);?></td>
+            <td><?php echo $this->escape($entry['resource']);?></td>
+            <td><?php echo $this->escape($entry['permission']);?></td>
+            <td><?php echo $this->escape($entry['name']);?></td>
+            <td><?php echo $this->escape($entry['menu']);?></td>
+
+		<td>
+		<a href="<?php echo $this->url(array('controller'=>'permissions','action'=>'edit', 'permission_id'=>$entry['permission_id']), 'default');?>">Editar</a>
+		<a href="<?php echo $this->url(array('controller'=>'permissions','action'=>'delete', 'permission_id'=>$entry['permission_id']), 'default');?>">Borrar</a>
+		</td>
+		</tr>
+	<?php endforeach; ?>
+	
+</table>
+<?php echo $this->paginator; ?>

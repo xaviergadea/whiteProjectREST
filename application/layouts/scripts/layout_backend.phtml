@@ -1,0 +1,181 @@
+<?= $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?= $this->headTitle($this->escape($this->title)) ?>
+        <?= $this->headLink(array('rel' => 'shortcut icon','href' => $this->baseUrl('/images/favicon.ico')),'PREPEND') ?>
+        
+        <!-- Framework CSS -->
+        <?= $this->headLink()->setStylesheet('/styles/resources/css/reset.css', 'screen, projection')?>
+        <?= $this->headLink()->setStylesheet('/styles/resources/css/style.css', 'screen, projection')?>
+        <?= $this->headLink()->setStylesheet('/styles/resources/css/invalid.css', 'screen, projection')?>
+   		<?= $this->headLink()->setStylesheet($this->baseUrl('/styles/resources/css/ie.css'), 'screen, projection', 'lte IE 7')?>
+  		
+   		
+		<!-- jQuery -->
+		<script type="text/javascript" src="/styles/resources/scripts/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="/styles/resources/scripts/simpla.jquery.configuration.js"></script>
+		<script type="text/javascript" src="/styles/resources/scripts/facebox.js"></script>
+		<script type="text/javascript" src="/styles/resources/scripts/jquery.wysiwyg.js"></script>
+		
+		<!-- Internet Explorer .png-fix -->		
+		<!--[if IE 6]>
+			<script type="text/javascript" src="/styles/resources/scripts/DD_belatedPNG_0.0.7a.js"></script>
+			<script type="text/javascript">
+				DD_belatedPNG.fix('.png_bg, img, li');
+			</script>
+		<![endif]-->        
+               
+        <!-- Framework CSS End -->
+        <?php $this->headLink()->appendStylesheet($this->baseUrl('/styles/photogallery/css/gallery.css'), 'screen, projection')?>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl('/styles/filetree/css/tree.css'), 'screen, projection')?>        
+        <?php $this->headLink()->appendStylesheet($this->baseUrl('/styles/fileuploader/css/fileuploader.css'), 'screen, projection')?>  
+        <?php $this->headLink()->appendStylesheet($this->baseUrl('/styles/fileuploader/css/fileuploaderview.css'), 'screen, projection')?>  
+        <?php echo $this->headLink() ?>
+          
+        <?php $this->headScript()->appendFile($this->baseUrl('/styles/filetree/js/common.js')); ?>
+        <?php $this->headScript()->appendFile($this->baseUrl('/styles/filetree/js/list.js')); ?>
+        <?php $this->headScript()->appendFile($this->baseUrl('/styles/fileuploader/js/fileuploader.js')); ?>
+        <?php $this->headScript()->appendFile($this->baseUrl('/scripts/js/Ajax.js')); ?>
+        <?php echo $this->headScript() ?>
+<?php /*
+<!--      <script type="text/javascript" -->
+<!--      		  src="<?php //=DOJO_PATH;?>/release/ag/dojo/dojo.js">-->
+<!--      </script>>-->
+      
+<!--      <script type="text/javascript"  -->
+<!--      		  src="<?=DOJO_PATH;?>/release/ag/ag.js" -->
+<!--      		  djConfig="parseOnLoad:true" >-->
+<!--      </script>>-->
+<!--           -->
+<!--      <script type="text/javascript" >-->
+<!--      	dojo.require('custom.main');-->
+<!--      </script> -->*/
+?>
+        <?php
+	        if ($this->dojo()->isEnabled())
+	        {
+//	            Zend_Dojo_View_Helper_Dojo::setUseDeclarative();
+//	            $this->dojo()->setLocalPath($this->baseUrl(DOJO_PATH.'/dojo/dojo.js'));
+	            $this->dojo()
+	            	->setLocalPath($this->baseUrl('/scripts/js/release/ag/dojo/dojo.js'))
+//	            	->setLocalPath($this->baseUrl(DOJO_PATH.'/release/ag/ag.js'))
+	                ->addStyleSheetModule('dijit.themes.tundra')
+	                //->addStyleSheet('/scripts/js/Dojo/dojo/resource/dojo.css')
+//	                ->setDjConfigOption('parseOnLoad', true) 
+	                ->setDjConfigOption('isDebug', false)
+	                ->setDjConfigOption('locale', 'es-es')
+//	             	->requireModule('dijit.dijit')           		
+//	             	->requireModule('dijit.layout.ContentPane')
+//	             	->requireModule('dijit.layout.TabContainer')
+//	             	->requireModule('dijit.layout.LinkPane')
+//	             	->requireModule('dijit.form.ComboBox')
+//	             	->requireModule('dijit.form.Button')
+//	             	->requireModule('dijit.form.TextBox')
+//	             	->requireModule('dijit.form.CheckBox')
+//	             	->requireModule('dojo.io.iframe')	
+//					->addLayer(DOJO_PATH.'/release/ag/custom/main.js')
+					;
+		    	echo $this->dojo();
+		    	//echo "sissiis2";
+		   	}
+        ?>
+             
+
+       
+
+    </head>
+
+<body class="tundra"><div id="body-wrapper"> <!-- Wrapper for the radial gradient background -->
+		
+		<div id="sidebar"><div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
+			
+			<h1 id="sidebar-title"><a href="#">JDVDP Admin</a></h1>
+		  
+			<!-- Logo (221px wide) -->
+			<a href="#"><img id="logo" src="/styles/resources/images/logo_short.png" alt="jdvpd Admin logo" /></a>
+
+		  
+			<!-- Sidebar Profile links -->
+			<div id="profile-links">
+					
+				Hello, <a href="#" title="Edit your profile"><?=Zend_Auth::getInstance()->getIdentity()->user_name;?></a><br />
+				<br />
+				<a href="/frontend/index" title="View the Site" target="_blank">View the Site</a> | <?php echo "<a href=\"".$this->url(array('module' => 'users', 'controller'=>'author', 'action'=>'logout'), 'default', true)."\">".$this->translate("Logout")."</a>"?>
+					<?php
+             			include_once(APPLICATION_PATH . '/modules/default/forms/Languages.php');           
+             			$form = new Default_Form_Languages();
+                        echo $form;
+                    ?>
+			</div>        
+			<div class="main-nav">
+             	 <?php 
+             	 	$acl = Users_Model_Acl::getInstance();
+					$list=$acl->listResourceByUser();
+             	 	echo $this->navigation()
+			                    ->menu()
+			                    ->setPartial(array('partials/_element_accordion_menu.phtml', 'default'))
+			                    ->setTranslator(Zend_Registry::get('Zend_Translate'))
+			                    ->setMaxDepth(0)
+			                    ->setUlClass('menu')
+			                    ->setOnlyActiveBranch(false)
+			                    ->setAcl($acl)
+							  	->setRole($list['role'])
+                 ;?>
+               
+                
+            </div>
+			
+			
+			
+			
+		</div></div> <!-- End #sidebar -->
+		
+		<div id="main-content"> <!-- Main Content Section with everything -->
+			
+			<noscript> <!-- Show a notification if the user has disabled javascript -->
+				<div class="notification error png_bg">
+					<div>
+						Javascript is disabled or is not supported by your browser. Please <a href="http://browsehappy.com/" title="Upgrade to a better browser">upgrade</a> your browser or <a href="http://www.google.com/support/bin/answer.py?answer=23852" title="Enable Javascript in your browser">enable</a> Javascript to navigate the interface properly.
+					</div>
+				</div>
+			</noscript>
+			
+			<!-- Page Head -->			
+			
+			
+			<div class="clear"></div> <!-- End .clear -->
+			<?= $this->layout()->content ?>
+			
+			
+			<div id="footer">
+				<small>
+
+						Copyright &copy;
+	        			<script type="text/javascript">var dt = new Date(); document.write(dt.getFullYear());</script>
+		    			jdvdp S.L.P., All Rights Reserved. ||| 
+		    			Developed by <a href="mailto:agustincl@gmail.com">Agustín F. Calderón M.</a> | <a href="#">Top</a>
+						
+		    
+				</small>
+				
+        
+				<p>
+	            	<a href="http://validator.w3.org/check?uri=referer">
+	                    <img src="<?php echo $this->baseUrl() ?>/assets/images/valid-xhtml10-blue.png" alt="Valid XHTML 1.0 Transitional" height="31" width="88" class="top" />
+	                </a>&nbsp;&nbsp;&nbsp;
+	                <a href="http://framework.zend.com/" target="_blank">
+	                    <img src="<?php echo $this->baseUrl() ?>/assets/images/PoweredBy_ZF_4LightBG.png" alt="Powered By ZendFramewrok" height="31" class="top" />
+	                </a>
+	            </p>
+			</div><!-- End #footer -->
+			
+		</div> <!-- End #main-content -->
+		
+	</div></body>
+
+
+
+
+
+</html>

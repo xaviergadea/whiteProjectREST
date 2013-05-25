@@ -1,0 +1,203 @@
+/********************* Arbo *********************/
+ul.arbo {
+	margin-top: 0.5em;
+	}
+	ul.arbo li {
+		background: url(../images/arbo-points-v.gif) repeat-y 8px 0.667em;
+		padding-left: 20px;
+		line-height: 1.333em;
+		padding-bottom: 0.333em;
+		}
+		ul.arbo li:last-child {
+			background: url(../images/arbo-points-v-end.gif) no-repeat 8px -7px;
+		}
+		/* IE class */
+		ul.arbo li.last-child,
+		ul.arbo li.first-child.last-child {
+			background: url(../images/arbo-points-v-end.gif) no-repeat 8px -7px;
+		}
+		ul.arbo > li:only-child {
+			background: url(../images/arbo-points-h.gif) no-repeat 8px 0.75em;
+		}
+		/* IE class */
+		ul.arbo > li.first-child.last-child {
+			background: url(../images/arbo-points-h.gif) no-repeat 8px 0.75em;
+		}
+		ul.arbo li > a,
+		ul.arbo li > span {
+			color: #333;
+			display: block;
+			padding-left: 12px;
+			}
+			/* IE class */
+			.ie7 ul.arbo li > a,
+			.ie7 ul.arbo li > span {
+				float: left;
+			}
+			.dark-grey-gradient ul.arbo li > a,
+			.dark-grey-gradient ul.arbo li > span {
+				color: white;
+			}
+			ul.arbo li > a:hover span,
+			ul.arbo li > a.current span {
+				background: #999999;
+				color: white;
+				padding: 0.083em 0.25em 0.167em;
+				margin: -0.083em -0.25em -0.167em;
+				-moz-border-radius: 0.25em;
+				-webkit-border-radius: 0.25em;
+				border-radius: 0.25em;
+			}
+		ul.arbo li.closed ul {
+			display: none;
+		}
+		ul.arbo li ul li:first-child {
+			padding-top: 0.5em;
+			background-position: 8px 1.167em;
+		}
+		/* IE class */
+		ul.arbo li ul li.first-child {
+			padding-top: 0.5em;
+			background-position: 8px 1.167em;
+		}
+		ul.arbo li ul li:only-child {
+			background-position: 8px -1px;
+		}
+		/* IE class */
+		ul.arbo li ul li.first-child.last-child {
+			background-position: 8px -1px;
+		}
+		
+		ul.arbo li span.toggle {
+			padding: 0;
+			float: left;
+			width: 16px;
+			height: 1.333em;
+			margin: 1px 0 -1px -19px;
+			background: url(../images/icons/toggle-small-sprite.png) no-repeat 0 center;
+			cursor: pointer;
+			}
+			ul.arbo li span.toggle:hover {
+				background-position: -16px center;
+			}
+			ul.arbo li.closed span.toggle {
+				background-position: -32px center;
+			}
+			ul.arbo li.closed span.toggle:hover {
+				background-position: -48px center;
+			}
+	
+	ul.arbo li .loading {
+		padding-left: 32px;
+		color: #999999;
+		background: url(../images/arbo-loader.gif) no-repeat 10px center;
+		}
+		.dark-grey-gradient ul.arbo li .loading,
+		ul.arbo.dark-grey-gradient li .loading {
+			background-image: url(../images/arbo-loader-grey.gif);
+		}
+	ul.arbo li .empty {
+		color: #999999;
+		font-style: italic;
+	}
+	
+	ul.arbo li .document,
+	ul.arbo li .document-access,
+	ul.arbo li .document-binary,
+	ul.arbo li .document-bookmark,
+	ul.arbo li .document-code,
+	ul.arbo li .document-excel,
+	ul.arbo li .document-film,
+	ul.arbo li .document-flash,
+	ul.arbo li .document-illustrator,
+	ul.arbo li .document-image,
+	ul.arbo li .document-music,
+	ul.arbo li .document-office,
+	ul.arbo li .document-pdf,
+	ul.arbo li .document-photoshop,
+	ul.arbo li .document-powerpoint,
+	ul.arbo li .document-text,
+	ul.arbo li .document-web,
+	ul.arbo li .document-word,
+	ul.arbo li .document-zip,
+	ul.arbo li .folder,
+	ul.arbo li .folder-bookmark,
+	ul.arbo li .folder-document,
+	ul.arbo li .folder-music,
+	ul.arbo li .folder-text,
+	ul.arbo li .folder-film,
+	ul.arbo li .folder-image,
+	ul.arbo li .folder-table,
+	ul.arbo li .folder-zipper {
+		padding-left: 20px;
+		background-repeat: no-repeat;
+	}
+	ul.arbo li .document { background-image: url(../images/icons/fugue/document.png); }
+	ul.arbo li .document-access { background-image: url(../images/icons/fugue/document-access.png); }
+	ul.arbo li .document-binary { background-image: url(../images/icons/fugue/document-binary.png); }
+	ul.arbo li .document-bookmark { background-image: url(../images/icons/fugue/document-bookmark.png); }
+	ul.arbo li .document-code { background-image: url(../images/icons/fugue/document-code.png); }
+	ul.arbo li .document-excel { background-image: url(../images/icons/fugue/document-excel.png); }
+	ul.arbo li .document-film { background-image: url(../images/icons/fugue/document-film.png); }
+	ul.arbo li .document-flash { background-image: url(../images/icons/fugue/document-flash-movie.png); }
+	ul.arbo li .document-illustrator { background-image: url(../images/icons/fugue/document-illustrator.png); }
+	ul.arbo li .document-image { background-image: url(../images/icons/fugue/document-image.png); }
+	ul.arbo li .document-music { background-image: url(../images/icons/fugue/document-music.png); }
+	ul.arbo li .document-office { background-image: url(../images/icons/fugue/document-office.png); }
+	ul.arbo li .document-pdf { background-image: url(../images/icons/fugue/document-pdf.png); }
+	ul.arbo li .document-photoshop { background-image: url(../images/icons/fugue/document-photoshop.png); }
+	ul.arbo li .document-powerpoint { background-image: url(../images/icons/fugue/document-powerpoint.png); }
+	ul.arbo li .document-text { background-image: url(../images/icons/fugue/document-text.png); }
+	ul.arbo li .document-web { background-image: url(../images/icons/fugue/document-globe.png); }
+	ul.arbo li .document-word { background-image: url(../images/icons/fugue/document-word.png); }
+	ul.arbo li .document-zip { background-image: url(../images/icons/fugue/document-zipper.png); }
+	
+	ul.arbo li .folder { background-image: url(../images/icons/fugue/folder-open.png); }
+	ul.arbo li.closed .folder { background-image: url(../images/icons/fugue/folder.png); }
+	ul.arbo li .folder-bookmark { background-image: url(../images/icons/fugue/folder-bookmark.png); }
+	ul.arbo li .folder-document { background-image: url(../images/icons/fugue/folder-open-document.png); }
+	ul.arbo li .folder-music { background-image: url(../images/icons/fugue/folder-open-document-music.png); }
+	ul.arbo li .folder-text { background-image: url(../images/icons/fugue/folder-open-document-text.png); }
+	ul.arbo li .folder-film { background-image: url(../images/icons/fugue/folder-open-film.png); }
+	ul.arbo li .folder-image { background-image: url(../images/icons/fugue/folder-open-image.png); }
+	ul.arbo li .folder-table { background-image: url(../images/icons/fugue/folder-open-table.png); }
+	ul.arbo li .folder-zipper { background-image: url(../images/icons/fugue/folder-zipper.png); }
+	
+	ul.arbo.with-title > li {
+		background: none;
+		padding-left: 0;
+		padding-bottom: 1em;
+		font-size: 1.25em;
+		line-height: 1.71em;
+		font-weight: bold;
+		}
+		ul.arbo.with-title > li > a,
+		ul.arbo.with-title > li > span {
+			padding-left: 7px;
+		}
+		/* IE class */
+		.ie7 ul.arbo.with-title > li > a,
+		.ie7 ul.arbo.with-title > li > span {
+			float: none;
+		}
+		ul.arbo.with-title > li > ul {
+			margin-left: 5px;
+			font-size: 0.8em;
+			font-weight: normal;
+		}
+		
+		ul.arbo.with-title > li > .title-computer,
+		ul.arbo.with-title > li > .title-picture,
+		ul.arbo.with-title > li > .title-print,
+		ul.arbo.with-title > li > .title-user,
+		ul.arbo.with-title > li > .title-search {
+			padding-left: 30px;
+			padding-bottom: 3px;
+			background-repeat: no-repeat;
+			background-position: 0 center;
+		}
+		ul.arbo.with-title > li > .title-computer { background-image: url(../images/icons/web-app/24/Loading.png); }
+		ul.arbo.with-title > li > .title-picture { background-image: url(../images/icons/web-app/24/Picture.png); }
+		ul.arbo.with-title > li > .title-print { background-image: url(../images/icons/web-app/24/Print.png); }
+		ul.arbo.with-title > li > .title-user { background-image: url(../images/icons/web-app/24/Profile.png); }
+		ul.arbo.with-title > li > .title-search { background-image: url(../images/icons/web-app/24/Search.png); }

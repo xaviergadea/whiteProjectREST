@@ -1,0 +1,13 @@
+<div id="generic_wrap" class="column span-16">
+    <div id="generic_group">    
+        <h2><?=$this->translate("Remember password")?></h2>
+        <?php if($this->entrySaved): ?>
+            <p><?=$this->translate("We just sent an e-mail to you with a NEW password")?>.</p>
+            <p><?=$this->translate("Thanks for using iPtours")?>.</p>
+            <p><a href="<?php echo $this->baseUrl();?>/author/login/"><?=$this->translate("Login")?></a></p>
+            <?php endif; ?>
+            <?php if($this->statusState): ?>
+                <p class="error"><?=$this->translate("This account has not been VALIDATED. Please")?> <a href="/author/validate/email/<?php echo $this->email ?>"> [<?=$this->translate("VALIDATE")?>]</a> <?=$this->translate("first")?>.</p>
+        <?php endif; ?>
+    </div><!-- end #generic_group -->
+</div><!-- end #generic_wrap -->

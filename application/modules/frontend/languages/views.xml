@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tmx SYSTEM "tmx14.dtd">
+<tmx version="1.4">
+<header creationtoolversion="1.0.0" datatype="winres" segtype="sentence"
+         adminlang="en-us" srclang="de-at" o-tmf="abc"
+         creationtool="XYZTool" >
+</header>
+<body>
+	<tu tuid='Language'>
+		<tuv xml:lang="en"><seg>English</seg></tuv>
+		<tuv xml:lang="es"><seg>Español</seg></tuv>
+		<tuv xml:lang="ca"><seg>Català</seg></tuv>
+		<tuv xml:lang="de"><seg>Deutsch</seg></tuv>
+		<tuv xml:lang="fr"><seg>Français</seg></tuv>
+		<tuv xml:lang="it"><seg>Italiano</seg></tuv>
+		<tuv xml:lang="nl"><seg>Nederlands</seg></tuv>
+		<tuv xml:lang="pl"><seg>Polski</seg></tuv>
+		<tuv xml:lang="ru"><seg>Русский</seg></tuv>
+	</tu>
+	<tu tuid='Presupuesto'>
+		<tuv xml:lang="en"><seg>Budget</seg></tuv>
+		<tuv xml:lang="es"><seg>Presupuesto</seg></tuv>
+		<tuv xml:lang="ca"><seg>Pressupost</seg></tuv>
+	</tu>
+	<tu tuid='Superficie'>
+		<tuv xml:lang="en"><seg>Area</seg></tuv>
+		<tuv xml:lang="es"><seg>Superficie</seg></tuv>
+		<tuv xml:lang="ca"><seg>Superfície</seg></tuv>
+	</tu>
+	<tu tuid='Colaborando con'>
+		<tuv xml:lang="en"><seg>Working with</seg></tuv>
+		<tuv xml:lang="es"><seg>Colaborando con</seg></tuv>
+		<tuv xml:lang="ca"><seg>Col·laborant amb</seg></tuv>
+	</tu>
+	
+	<tu tuid='Asociados'>
+		<tuv xml:lang="en"><seg>Associates</seg></tuv>
+		<tuv xml:lang="es"><seg>Asociados</seg></tuv>
+		<tuv xml:lang="ca"><seg>Associats</seg></tuv>
+	</tu>
+	<tu tuid='Colaboradores'>
+		<tuv xml:lang="en"><seg>Colaborators</seg></tuv>
+		<tuv xml:lang="es"><seg>Col·laborant am</seg></tuv>
+		<tuv xml:lang="ca"><seg>Col·laboradors</seg></tuv>
+	</tu>
+	<tu tuid='Promotor'>
+		<tuv xml:lang="en"><seg>Promoter</seg></tuv>
+		<tuv xml:lang="es"><seg>Promotor</seg></tuv>
+		<tuv xml:lang="ca"><seg>Promotor</seg></tuv>
+	</tu>
+	<tu tuid='Constructor'>
+		<tuv xml:lang="en"><seg>Builder</seg></tuv>
+		<tuv xml:lang="es"><seg>Constructor</seg></tuv>
+		<tuv xml:lang="ca"><seg>Constructor</seg></tuv>
+	</tu>
+	<tu tuid='Fotografias'>
+		<tuv xml:lang="en"><seg>Photos</seg></tuv>
+		<tuv xml:lang="es"><seg>Fotografías</seg></tuv>
+		<tuv xml:lang="ca"><seg>Fotografies</seg></tuv>
+	</tu>
+	<tu tuid='Cliente'>
+		<tuv xml:lang="en"><seg>Client</seg></tuv>
+		<tuv xml:lang="es"><seg>Cliente</seg></tuv>
+		<tuv xml:lang="ca"><seg>Client</seg></tuv>
+	</tu>
+	<tu tuid='Consultores'>
+		<tuv xml:lang="en"><seg>Consultants</seg></tuv>
+		<tuv xml:lang="es"><seg>Consultores</seg></tuv>
+		<tuv xml:lang="ca"><seg>Consultors</seg></tuv>
+	</tu>
+	
+
+</body>

@@ -1,0 +1,10 @@
+<p><?=$this->translate("Are you sure you want to delete");?> 
+'<?php echo $this->escape($this->entry['user_name']); ?>' <?=$this->translate("with");?> 
+'<?php echo $this->escape($this->entry['email']); ?>'?
+</p>
+<form action="<?= $this->url(array('module' => 'users','controller' => 'index','action'=>'delete'), 'default', true) ?>" method="post">
+<div>
+<input type="hidden" name="uid" value="<?php echo $this->entry['uid']; ?>" />
+<input type="submit" name="del" value="<?=$this->translate("Yes");?>"/>
+<input type="submit" name="del" value="<?=$this->translate("No");?>" />
+</div>

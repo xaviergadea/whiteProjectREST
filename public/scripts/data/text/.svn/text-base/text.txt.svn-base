@@ -1,0 +1,8 @@
+<textarea rows="7" cols="20" wrap="virtual" readonly>
+hello from text.txt.
+hope you are fine.
+
+select any option from the above menu to load other files.
+
+note this is just a simple file with a textarea tag around the text but you can throw it on any page with AJAX.
+</textarea>

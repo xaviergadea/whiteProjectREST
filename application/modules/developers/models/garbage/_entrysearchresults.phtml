@@ -1,0 +1,91 @@
+<?php foreach($this->entries as $entry) : ?>
+<div class="infoHotel">
+        <div class="topHotel">
+          <div class="linkInfoHotel">
+          	<a href="<?= $this->url(array('module' => 'hotels','controller'=>'index','action'=>'bookinfo', 'op'=>$entry['Hotel_operator'], 'hotel_id'=>$entry['Hotel_id'])); ?>"><?=$this->translate("Hotel info");?></a>
+          </div>
+          <div class="priceHotel"><?=(isset($entry['Hotel_totalprice']))?$entry['Hotel_totalprice']:'';?>€ <span class="text_simple"><?=$this->translate('Total price, including taxes')?></span></div>
+        </div>
+        <?php if(@Zend_Auth::getInstance()->getIdentity()->role_id=='1'):?>
+        <div class="contentHotel" <?=$entry['Hotel_operator']=='g'?'style="background-color:#00aa00;"':'style="background-color:#00aa66"';?>>
+		<?php else:?>
+		<div class="contentHotel"> 
+        <?php endif;?>
+          <div class="imgHotel"> 
+          					
+			                <?php if(!is_array($entry['Hotel_image'])):?>
+			        			<a href="<?php echo $entry['Hotel_image']; ?>" 
+										dojoType="dojox.image.Lightbox" 
+										group="group<?=$entry['Hotel_name'];?>" 
+										title="<?=$entry['Hotel_name'];?>">						
+				                	<img src="<?php echo $entry['Hotel_image']; ?>" height='60'>
+			                	</a>
+			        		<?php else:?>
+				        		<a href="<?php echo $entry['Hotel_image'][0]; ?>" 
+										dojoType="dojox.image.Lightbox" 
+										group="group<?=$entry['Hotel_name'];?>" 
+										title="<?=$entry['Hotel_name'];?>">						
+				                	<img src="<?php echo $entry['Hotel_image'][0]; ?>" height='60'>
+				                </a>
+			                <?php endif;?>
+			                
+		  </div>
+          <div class="txtHotel">
+            <h1><?=(isset($entry['Hotel_name']))?$entry['Hotel_name']:'';?> &nbsp;<?=(isset($entry['Hotel_category']))?$entry['Hotel_category']:'';?></h1>
+            <p>
+            	<span class="text_simple2">
+            		<?php //=(isset($entry['Hotel_description']))?substr($this->escape($entry['Hotel_description']),0,200):'';?>
+            		<?php if(!is_array($entry['Hotel_description'])):?>
+						<?=substr($this->escape($entry['Hotel_description']),0,200);?>
+					<?php else:?>
+		        		<?php foreach($entry['Hotel_description'] as $description) : ?>
+						<?=substr($this->escape($description),0,100);?>
+						<?php endforeach; ?>
+					<?php endif;?>
+            	</span>
+            				
+            </p>
+          </div>
+          <div class="linkHotel"> <a href="link 2">Buscar opiniones en la red</a> </div>
+          
+          
+          
+
+		<div class="contTable">
+            <table  class="price_tab" width="645" border="0" cellspacing="0" cellpadding="0">
+<?php $roomss=0;?>
+<?php foreach((array)$entry['Hotel_rooms'] as $room) : ?>
+
+              <tr>
+                <th width="144" scope="row"><?=$room['Hotel_room_description'];?></th>
+                <td width="254"><?=$room['Hotel_room_Quantity'];?> <?=$room['Hotel_room_board'];?></td>
+                
+                <td width="90"><?=$room['Hotel_room_price'];?>€</td>
+                <td width="115">                	
+                	<?php if($room['Hotel_room_confirmationCode']=='B'):?>
+<!--					<a href="<?= $this->url(array('module' => 'hotels','controller'=>'index','action'=>'bookinfo', 'op'=>$entry['Hotel_operator'], 'hotel_id'=>$entry['Hotel_id'])); ?>"><?=$this->translate("Details");?></a>-->
+					<a href="<?= $this->url(array('module' => 'iptours','controller'=>'frontend','action'=>'hotelbookrequest', 'op'=>$entry['Hotel_operator'], 'hotel_id'=>$entry['Hotel_id'], 'cook'=>$entry['cook'])); ?>"><input name="boton" type="button" value="Reservar" class="btn_2" /></a>
+                	
+                	<?php elseif($room['Hotel_room_confirmationCode']=='R'):?>
+<!--					<a href="<?= $this->url(array('module' => 'hotels','controller'=>'index','action'=>'brequest')); ?>"><?=$this->translate("Request");?></a>-->
+					<input name="boton" type="button" value="Request" class="btn_2" />
+					<?php endif;?>
+                </td>
+              </tr>
+<?php $roomss++;?>
+<?php endforeach; ?>
+
+             <tr><?php if($room['Hotel_room_confirmationCode']=='B'):?>
+<!--					<a href="<?= $this->url(array('module' => 'hotels','controller'=>'index','action'=>'bookinfo', 'op'=>$entry['Hotel_operator'], 'hotel_id'=>$entry['Hotel_id'])); ?>"><?=$this->translate("Details");?></a>-->
+					<a href="<?= $this->url(array('module' => 'iptours','controller'=>'frontend','action'=>'hotelbookrequest', 'op'=>$entry['Hotel_operator'], 'hotel_id'=>$entry['Hotel_id'], 'cook'=>$entry['cook'])); ?>"><input name="boton" type="button" value="Reservar" class="btn_2" /></a>
+                	
+                	<?php elseif($room['Hotel_room_confirmationCode']=='R'):?>
+<!--					<a href="<?= $this->url(array('module' => 'hotels','controller'=>'index','action'=>'brequest')); ?>"><?=$this->translate("Request");?></a>-->
+					<input name="boton" type="button" value="Request" class="btn_2" />
+					<?php endif;?></tr>
+            </table>            
+          </div>    		
+		
+        </div>
+      </div>
+<?php endforeach; ?>      

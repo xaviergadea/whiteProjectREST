@@ -1,0 +1,28 @@
+<ul class="shortcut-buttons-set"> <!-- Replace the icons URL's with your own -->	
+	<li><a class="shortcut-button" href="<?php echo $this->url(array('module'=>'admin','controller'=>'crontabs','action'=>'add'), 'default');?>"><span>
+		Editar Archivo de Configuracion
+	</span></a></li>
+</ul>
+<table>
+	<tr>
+		<th><?=$this->translate("Name");?></th>
+		<th><?=$this->translate("Interval");?></th>
+		<th><?=$this->translate("Filepath");?></th>			
+		<th><?=$this->translate("Status");?></th>		
+        <th>&nbsp;</th>
+	</tr>
+	<?php foreach($this->entries as $entry) : ?>
+		<tr class="<?php echo $this->cycle(array("even","odd"))->next()?>" >
+			<td><?php echo $this->escape($entry['name']);?></td>
+			<td><?php echo $this->escape($entry['interval']);?></td>
+			<td><?php echo $this->escape($entry['filepath']);?></td>
+			<td><?php echo $this->escape($entry['status']);?> <a href="<?php echo $this->url(array('module'=>'admin','controller'=>'crontabs','action'=>'toggle', 'id'=>$entry['id'], 'tooglevar'=>'status', 'status'=>$entry['status']));?>">Toggle</a></td>
+
+		<td>
+		<a href="<?php echo $this->url(array('module'=>'admin','controller'=>'crontabs','action'=>'execute', 'id'=>$entry['id']), 'default');?>">Borrar</a>
+		<a href="<?php echo $this->url(array('module'=>'admin','controller'=>'crontabs','action'=>'edit', 'id'=>$entry['id']));?>">Editar</a>
+		<a href="<?php echo $this->url(array('module'=>'admin','controller'=>'crontabs','action'=>'execute', 'id'=>$entry['id']), 'default');?>">Execute</a>
+		</td>
+		</tr>
+	<?php endforeach; ?>
+</table>

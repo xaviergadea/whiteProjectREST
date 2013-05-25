@@ -1,0 +1,79 @@
+<?php
+	$submit=@$_POST['Submit'];
+	if($submit == "Submit"){
+	$status = "OK";
+	$email=$_POST['email'];
+	$message=$_POST['message'];
+	$subject=$_POST['subject'];
+	$name=$_POST['name'];
+	$phone=$_POST['phone'];
+
+	$msg="";
+	$msgerror="";
+	//error_reporting(E_ERROR | E_PARSE | E_CORE_ERROR);
+
+
+if ( strlen($name) < 1 ){
+	$msgerror=$msgerror."* your name field is missing<BR />";
+	$status= "NOTOK";}	
+
+if ( strlen($message) < 5 ){
+	$msgerror=$msgerror."* your Comments field is blank must be more than 5 words<BR/>";
+	$status= "NOTOK";}	
+
+
+if (!stristr($email,"@") OR !stristr($email,".")) {
+	$msgerror=$msgerror."* your email address is not correct<BR />";
+	$status= "NOTOK";}   
+
+
+if($status=="OK"){// echo $query;
+	$headers="";
+	$headers4="agustincl@gmail.com"; // Change this address within quotes to your address //
+	$headers.="Reply-to:$email\n";
+	$headers .= "From: $email\n";
+	$headers .= "Errors-to: $headers4\n";
+	$headers = "Content-Type: text/html; charset=iso-8859-1\n".$headers;
+mail($headers4,$subject,"Contact Us <BR>
+Name :$name
+<BR>Email:$email
+<br>Phoneno:$phone
+<br>Comments: $message","$headers");
+$msg="Thank you! your message has been sent we will contact you soon.";
+}
+	}
+?>
+<!-- .scrollpanel -->
+		<div class="scroll-pane2">		
+
+			<!-- START : .SUBHEADER -->
+				
+			<!-- END : .SUBHEADER -->
+			
+
+
+<div class="one_width last">
+<br/>
+<br/><br/><br/><br/><br/><br/>
+<p>
+JANSANA, DE LA VILLA, DE PAAUW, ARQUITECTES, SLP<br />
+Av. Portal de l'Àngel 7<br />
+08002 Barcelona (Spain)<br />
+Teléfono (+34)933172107<br />
+Móvil (+34)671039238<br />
+Fax (+34)933174557<br />
+Email: jdvdp@jdvdp.com<br />
+www.jdvdp.com<br />
+</p>
+</div>
+<div class="clear"></div>
+			
+			<!-- Start: Contact form -->
+               
+				<!-- End: Contact form -->	
+	
+
+		
+		</div>
+		<!-- .scrollpanel -->
+		<div class="divider"></div>

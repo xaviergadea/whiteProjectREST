@@ -1,0 +1,5 @@
+<p>
+	<a href="<?php echo $this->url(array('controller'=>'index','action'=>'add'), 'default');?>">Agregar nuevo proyecto</a>
+</p>
+
+<?=$this->treeMenu($this->dir, $filter='images', $this->name);?>
