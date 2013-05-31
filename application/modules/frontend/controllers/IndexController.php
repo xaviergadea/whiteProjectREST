@@ -34,8 +34,8 @@ class Frontend_IndexController extends Zend_Controller_Action
 	public function init()
     {   
         $uri="/".$this->_getParam('module')."/".$this->_getParam('controller')."/".$this->_getParam('action');
-        $activeNav = $this->view->navigation()->findByUri($uri);
-        $activeNav->active=true;
+        //$activeNav = $this->view->navigation()->findByUri($uri);
+        //$activeNav->active=true;
     }
 
     /**

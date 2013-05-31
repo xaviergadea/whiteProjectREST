@@ -14,12 +14,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
  	
  	protected function _initAutoload()
     {
-        
     	$autoloader = Zend_Loader_Autoloader::getInstance();
-//        Zend_Debug::dump($autoloader->getRegisteredNamespaces());
-//        Zend_Debug::dump(get_include_path());
-		//$autoloader->setFallbackAutoloader(true);
-        
     }
 
  
@@ -47,8 +42,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$layout = $this->getResource('layout');
 		$view = $layout->getView();
 		
-        $view->doctype('XHTML1_TRANSITIONAL');
-        $view->headTitle('');
+        $view->doctype('HTML5');
+        $view->headTitle('White-Project ZF1 - ');
+        
               
         // Enable dojo on layout
         $view->addHelperPath('Zend/Dojo/View/Helper/', 'Zend_Dojo_View_Helper');
@@ -116,7 +112,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initSession()
     {
 		Zend_Session::start();
-		$zfip = new Zend_Session_Namespace('jan');
+		$zfip = new Zend_Session_Namespace('wp');
 		
 	}
 	 	
@@ -144,11 +140,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
      protected function _initLang()
      {
-        // TODO
-        // Set cache for speedup
-        //$cache = Zend_Cache::factory('Core','File');
-        //Zend_Translate::setCache($cache);
-
         $translate = new Zend_Translate('tmx', dirname(__FILE__) .'/languages/info.xml', $_SESSION['default']['language']);
 		Zend_Registry::set('Zend_Translate', $translate);        
      }
@@ -204,5 +195,26 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 
     }
     
+    
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -96,6 +96,8 @@ class Users_IndexController extends Zend_Controller_Action
      */
 	public function editAction()
     {
+    	
+    	/****/
     	$this->view->headTitle("Edit Users", 'APPEND');
         $request = $this->getRequest();
     	$form    = new Users_Form_Users(array('isEdit'=>1));
